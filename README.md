@@ -1,6 +1,6 @@
 ### Vision Statement for Recimeal 
 
-Recimeal helps you create your next meal. **This recipe collection application allows you to quickly save, search and add recipes**. Users can more efficiently find recipes to suit their needs via searching for recipes or add their own at any time without the hassle of a traditional cookbook. 
+Recimeal helps you create your next meal. **This recipe collection application allows you to quickly save, search and create recipes**. Users can more efficiently find recipes to suit their needs via searching for recipes or add their own at any time without the hassle of a traditional cookbook. 
 
 The app is self-contained and does not require a connection to any outside app. This means it does not need an internet connection, nor permissions to access other apps. This makes it accessible offline, and people who do not like giving out permissions can use the app without worry. The app comes preloaded with some recipes, and any updates to this core set would be issued by an app update. 
 
