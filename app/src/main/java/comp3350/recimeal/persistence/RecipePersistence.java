@@ -9,7 +9,7 @@ public interface RecipePersistence {
 
     Recipe insertRecipe(Recipe newRecipe);
 
-    Recipe updateRecipe(Recipe newRecipe);
+    Recipe updateRecipe(Recipe currRecipe);
 
     void deleteRecipe(Recipe discardRecipe);
 }
