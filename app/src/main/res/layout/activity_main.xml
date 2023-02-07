@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="comp3350.recimeal.presentation.MainActivity">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="1">
+
+        <EditText
+            android:id="@+id/searchRecipeText"
+            android:layout_width="466dp"
+            android:layout_height="wrap_content"
+            android:ems="12"
+            android:enabled="true"
+            android:hint="Search for Recipes (Search nothing to show all)" />
+
+    <Button
+        android:id="@+id/searchRecipeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:onClick="searchButtonPressed"
+        android:text="search" />
+
+    </GridLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/listRecipes"
+        android:layout_weight="1"
+        android:layout_gravity="top"
+        android:choiceMode="singleChoice" />
+
+
+</LinearLayout>

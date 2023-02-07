@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".presentation.CoursesActivity"
+            android:exported="true"
+            android:label="@string/title_activity_courses">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.recimeal.presentation.HomeActivity" />
+
+        </activity>
+        <activity
+            android:name=".presentation.HomeActivity"
+            android:exported="true"
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name=".presentation.StudentsActivity"
+            android:label="@string/title_activity_students">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.recimeal.presentation.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.StudentCoursesActivity"
+            android:label="@string/title_activity_student_courses">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.recimeal.presentation.StudentsActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.CourseStudentsActivity"
+            android:label="@string/title_activity_course_students">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.recimeal.presentation.CoursesActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.RecipesActivity"
+            android:label="@string/title_activity_recipe">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.recimeal.presentation.RecipesActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.MainActivity"
+            android:label="@string/title_activity_main"
+            android:exported="true">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.recimeal.presentation.MainActivity" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
