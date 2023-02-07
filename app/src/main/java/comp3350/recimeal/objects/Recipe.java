@@ -6,21 +6,25 @@ import java.util.TreeMap;
 public class Recipe {
 
     private final String name;
-    private final String instruction;
+    private String instruction;
+    //a short description of the recipe, shouldn't be more than 50 characters
+    private String description;
     //stores the ingredients name and their amounts, implemented with Treemap
     private Map<String, Integer> ingredients;
 
     //a complete constructor
-    public Recipe(final String name, final String instruction, final Map<String, Integer> ingredients){
+    public Recipe(final String name, final String instruction, final String description,  Map<String, Integer> ingredients){
         this.name = name;
         this.instruction = instruction;
+        this.description = description;
         this.ingredients = new TreeMap<>(ingredients);
     }
 
     //constructor without the ingredients, can add ingredients with addIngred() after Recipe is created
-    public Recipe(final String name, final String instruction){
+    public Recipe(final String name, final String instruction, final String description){
         this.name = name;
         this.instruction = instruction;
+        this.description = description;
         ingredients = new TreeMap<>();
     }
 
