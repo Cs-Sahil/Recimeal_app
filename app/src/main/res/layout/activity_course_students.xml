@@ -8,11 +8,11 @@
     tools:context="comp3350.recimeal.presentation.CourseStudentsActivity" >
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
         android:id="@+id/listCourseStudents"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="311dp"
         android:layout_gravity="top"
+        android:layout_weight="1"
         android:choiceMode="none" />
-    
+
 </LinearLayout>

@@ -5,8 +5,10 @@ import java.util.TreeMap;
 
 public class Recipe {
 
+    private final static String DEFAULT_DESCRIPTION = "No Description Given";
     private final String name;
     private final String instruction;
+    private final String description;
     //stores the ingredients name and their amounts, implemented with Treemap
     private Map<String, Integer> ingredients;
 
@@ -15,6 +17,7 @@ public class Recipe {
         this.name = name;
         this.instruction = instruction;
         this.ingredients = new TreeMap<>(ingredients);
+        this.description = DEFAULT_DESCRIPTION;
     }
 
     //constructor without the ingredients, can add ingredients with addIngred() after Recipe is created
@@ -22,8 +25,15 @@ public class Recipe {
         this.name = name;
         this.instruction = instruction;
         ingredients = new TreeMap<>();
+        this.description = DEFAULT_DESCRIPTION;
     }
 
+    public Recipe(final String name, final String instruction,final String description){
+        this.name = name;
+        this.instruction = instruction;
+        ingredients = new TreeMap<>();
+        this.description = description;
+    }
     /*methods to add ingredient into the recipe, there are two versions:
     1. The ingredient is already in the app data
         We simply add the name and the amount to the ingredients map
@@ -35,6 +45,16 @@ public class Recipe {
      */
 
     //version 1
+    public String getRecipeName()
+    {
+        return (this.name);
+    }
+    public String getRecipeDescription()
+    {
+        return (this.description);
+    }
+    public String getRecipeInstruction() { return (this.instruction);}
+
     public boolean addIngred(String name, int amount){
         //if the ingredient is already in the map, don't add it again
         if(ingredients.containsKey(name))
@@ -49,4 +69,11 @@ public class Recipe {
     public boolean addIngred(String name, int amount, String unit){
         return false;
     }
+
+    @Override
+    public String toString() {
+
+        return this.name;
+    }
 }
+

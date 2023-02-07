@@ -131,8 +131,8 @@ public class CoursesActivity extends Activity {
         //editName.setText("it worked");
 
         //this makes it change 'scenes' back to the home screen when something picked
-        Intent homeIntent = new Intent(this, HomeActivity.class);
-        homeIntent.putExtra("RecipeToRead",selected.toString());
+        Intent homeIntent = new Intent(this, MainActivity.class);
+        //homeIntent.putExtra("RecipeToRead",selected.toString());
         this.startActivity(homeIntent);
     }
 
