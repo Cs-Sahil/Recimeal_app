@@ -1,11 +1,11 @@
-Create an ARCHITECTURE.md file that describes the architecture of your application. Identify the packages and major source code files in your repository. Sketch out the overall architecture of your system broadly. If you want, you can use a tool like asciiflow or Mermaid for text purity in your ARCHITECTURE.md file, or you may create an architecture diagram as an image (.png, .jpg, .svg). Note that GitLab can render Mermaid diagrams!
-
 ###COMP3350 - Group 13 - Iteration 1 Architecture
+
 #Recimeal Architecture
 
 The application was based upon the sample project provided [here](https://code.cs.umanitoba.ca/comp3350-winter2023/sample) (which is the sample project present in the Iteration 1 description).
 
 ###Packages
+
 The packages containing the code for Recimeal are broken into the following sections:
 - Application
 - Business (comp3350.recimeal.business)
