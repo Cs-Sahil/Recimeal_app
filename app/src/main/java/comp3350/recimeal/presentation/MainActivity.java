@@ -73,7 +73,6 @@ public class MainActivity extends Activity {
         }
 
     }
-
     public void selectRecipeAtPosition(int position) {
         Recipe selected = recipeArrayAdapter.getItem(position);
 
