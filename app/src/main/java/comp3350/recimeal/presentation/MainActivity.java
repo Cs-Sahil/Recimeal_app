@@ -76,13 +76,6 @@ public class MainActivity extends Activity {
     public void selectRecipeAtPosition(int position) {
         Recipe selected = recipeArrayAdapter.getItem(position);
 
-        //    EditText editID = (EditText)findViewById(R.id.editCourseID);
-        //   EditText editName = (EditText)findViewById(R.id.editCourseName);
-
-        // editID.setText(selected.getCourseID());
-        // editName.setText(selected.getCourseName());
-        //editName.setText("it worked");
-
         //this makes it change 'scenes' when something picked
         Intent recipeIntent = new Intent(this, RecipesActivity.class);
         String recipeInfo[] = new String[] {selected.getRecipeName(),selected.getRecipeDescription(), selected.getRecipeInstruction()};

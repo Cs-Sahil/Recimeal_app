@@ -7,11 +7,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-
 import comp3350.recimeal.objects.Recipe;
 import comp3350.recimeal.persistence.RecipePersistence;
+import comp3350.recimeal.application.Services;
 
-public class AccessRecipes {
+public class AccessRecipes
+{
 
     private RecipePersistence recipePersistence;
     private List<Recipe> recipes;
@@ -20,12 +21,8 @@ public class AccessRecipes {
 
     public AccessRecipes()
     {
-        //recipePersistence = Services.getRecipePersistence();
-        recipes = new ArrayList<Recipe>();
-        recipes.add(new Recipe("Hamburger","make Hamburger","not bad"));
-        recipes.add(new Recipe("Hot dog","make Hotdog", "it's ok"));
-        recipes.add(new Recipe("Taco","make Taco", "Yum"));
-        recipes.add(new Recipe("Cheese Burger","make Hamburger, add Cheese"));
+        recipePersistence = Services.getRecipePersistence();
+        recipes = recipePersistence.getRecipeSequential();
         recipe = null;
         currentRecipe = 0;
     }
