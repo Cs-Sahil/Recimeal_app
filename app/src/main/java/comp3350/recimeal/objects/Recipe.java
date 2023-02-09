@@ -19,7 +19,7 @@ public class Recipe {
         this.instruction = instruction;
         this.description = description;
         this.ingredients = new TreeMap<>(ingredients);
-        this.description = DEFAULT_DESCRIPTION;
+        this.description = description;
     }
 
     //constructor without the ingredients, can add ingredients with addIngred() after Recipe is created
