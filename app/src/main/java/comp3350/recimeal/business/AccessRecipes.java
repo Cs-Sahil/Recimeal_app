@@ -29,8 +29,6 @@ public class AccessRecipes
 
     public List<Recipe> getRecipes()
     {
-        //recipes = recipePersistence.getCourseSequential();
-
         return Collections.unmodifiableList(recipes);
     }
 

@@ -7,19 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import comp3350.recimeal.R;
-import comp3350.recimeal.business.AccessCourses;
 import comp3350.recimeal.business.AccessRecipes;
-import comp3350.recimeal.objects.Course;
 import comp3350.recimeal.objects.Recipe;
 
 public class MainActivity extends Activity {
