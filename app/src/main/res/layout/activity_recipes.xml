@@ -10,7 +10,6 @@
     android:background="@color/viridisOrange2"
     tools:context="comp3350.recimeal.presentation.RecipesActivity">
 
-
         <TextView
             android:id="@+id/textRecipeTitle"
             android:layout_width="match_parent"
@@ -29,19 +28,29 @@
             android:id="@+id/separator"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp" />
+
         <TextView
             android:id="@+id/textRecipeDescription"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="60dp"
+            android:layout_height="67dp"
+            android:layout_marginBottom="30dp"
             android:text="@string/default_description"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-        <TextView
-            android:id="@+id/textRecipeInstruct"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="60dp"
-            android:text="@string/default_instructions"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
 
+        <ScrollView
+            android:id="@+id/recipeScroll"
+            android:layout_width="fill_parent"
+            android:layout_height="550dp"
+            android:layout_marginBottom="60dp"
+            android:fillViewport="true"
+            android:scrollbars="vertical">
+
+                <TextView
+                    android:id="@+id/textRecipeInstruct"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/default_instructions"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        </ScrollView>
 </LinearLayout>
