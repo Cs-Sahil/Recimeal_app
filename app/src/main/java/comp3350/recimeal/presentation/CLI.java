@@ -3,25 +3,16 @@ package comp3350.recimeal.presentation;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Locale;
+import java.util.List;
 
-import comp3350.recimeal.business.AccessStudents;
-import comp3350.recimeal.business.AccessCourses;
-import comp3350.recimeal.business.AccessSC;
-import comp3350.recimeal.objects.Student;
-import comp3350.recimeal.objects.Course;
-import comp3350.recimeal.objects.SC;
+import comp3350.recimeal.business.AccessRecipes;
+import comp3350.recimeal.objects.Recipe;
 
 public class CLI  // command-line interface
 {
 	public static BufferedReader console;
 	public static String inputLine;
 	public static String[] inputTokens;
-	
-	public static Student currentStudent;
-	public static Course currentCourse;
-	public static SC currentSC;
-	public static SC currentCS;
 
 	public static String studentNumber;
 	public static String courseNumber;
@@ -33,6 +24,8 @@ public class CLI  // command-line interface
 		try
 		{
 			console = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("See all recipes with 'search', or filter with 'search <search term>'");
+			System.out.println("View a recipe with 'get <recipe name>'");
 			process();
 			console.close();
 		}
@@ -77,147 +70,56 @@ public class CLI  // command-line interface
 		{
 			processGet();
 		}
+		else if (inputTokens[0].equalsIgnoreCase("search"))
+		{
+			processSearch();
+		}
 		else
 		{
 			System.out.println("Invalid command.");
 		}
 	}
 
+	public static void processSearch()
+	{
+		AccessRecipes accessRecipes = new AccessRecipes();
+		List<Recipe> searchList;
+		if(inputTokens.length>1)
+			searchList = accessRecipes.getSearchedRecipes(accessRecipes.getRecipes(), inputTokens[1]);
+		else
+			searchList = accessRecipes.getSearchedRecipes(accessRecipes.getRecipes(), "");
+
+		//print all recipe names
+		for(int i=0;i<searchList.size();i++)
+		{
+			System.out.println(searchList.get(i).getRecipeName());
+			System.out.println(indent+searchList.get(i).getRecipeDescription());
+		}
+	}
+
 	public static void processGet()
 	{
-		if (inputTokens[1].equalsIgnoreCase("Student"))
+		AccessRecipes accessRecipes = new AccessRecipes();
+		if(inputTokens.length>1)
 		{
-			processGetStudent();
-		}
-		else if (inputTokens[1].equalsIgnoreCase("Course"))
-		{
-			processGetCourse();
-		}
-		else if (inputTokens[1].equalsIgnoreCase("SC"))
-		{
-			processGetSC();
-		}
-		else if (inputTokens[1].equalsIgnoreCase("CS"))
-		{
-			processGetCS();
-		}
-		else
-		{
-			System.out.println("Invalid data type");
-		}
-	}
-
-	public static void processGetStudent()
-	{
-		AccessStudents accessStudents;
-		AccessSC accessSC;
-		
-		accessStudents = new AccessStudents();
-		
-		if (inputTokens.length > 2)
-		{
-			if (inputTokens[2].equalsIgnoreCase("orphan"))
-			{
-				accessSC = new AccessSC();
-				currentStudent = accessStudents.getSequential();			
-				while (currentStudent != null)
-				{
-					studentNumber = currentStudent.getStudentID();
-					accessSC = new AccessSC();
-					currentSC = accessSC.getSC(studentNumber);
-					if (currentSC == null)
-					{
-						System.out.println(indent +currentStudent);
-					}
-					currentStudent = accessStudents.getSequential();
-				}
+			List<Recipe> list = accessRecipes.getSearchedRecipes(accessRecipes.getRecipes(),inputTokens[1]);
+			if(list.size()>0) {
+				Recipe got = list.get(0);
+				//show the recipe info
+				System.out.println("==============================");
+				System.out.println(got.getRecipeName());
+				System.out.println("==============================");
+				System.out.println(got.getRecipeDescription());
+				System.out.println("------------------------------");
+				System.out.println(got.getRecipeInstruction());
+				System.out.println("==============================");
 			}
 			else
-			{
-				studentNumber = inputTokens[2];
-				currentStudent = accessStudents.getRandom(studentNumber);
-				System.out.println(indent +currentStudent);
-			}
+				System.out.println("No recipes contain search term "+inputTokens[1]);
 		}
 		else
 		{
-			currentStudent = accessStudents.getSequential();			
-			while (currentStudent != null)
-			{
-				studentNumber = currentStudent.getStudentID();
-				System.out.println(indent +currentStudent);
-				currentStudent = accessStudents.getSequential();
-			}
-		}
-	}
-
-	public static void processGetCourse()
-	{
-		AccessCourses accessCourses;
-		AccessSC accessSC;
-
-		accessCourses = new AccessCourses();
-		
-		if (inputTokens.length > 2)
-		{
-			if (inputTokens[2].equalsIgnoreCase("orphan"))
-			{
-				accessSC = new AccessSC();
-				currentCourse = accessCourses.getSequential();			
-				while (currentCourse != null)
-				{
-					courseNumber = currentCourse.getCourseID();
-					accessSC = new AccessSC();
-					currentCS = accessSC.getCS(courseNumber);
-					if (currentCS == null)
-					{
-						System.out.println(indent +currentCourse);
-					}
-					currentCourse = accessCourses.getSequential();
-				}
-			}
-			else
-			{
-				courseNumber = (inputTokens[2]).toUpperCase(Locale.getDefault());
-				currentCourse = accessCourses.getRandom(courseNumber);
-				System.out.println(indent +currentCourse);
-			}
-		}
-		else
-		{
-			currentCourse = accessCourses.getSequential();			
-			while (currentCourse != null)
-			{
-				courseNumber = currentCourse.getCourseID();
-				System.out.println(indent +currentCourse);
-				currentCourse = accessCourses.getSequential();
-			}
-		}
-	}
-
-	public static void processGetSC()
-	{
-		AccessSC accessSC;
-		
-		accessSC = new AccessSC();
-		currentSC = accessSC.getSC(studentNumber);			
-		while (currentSC != null)
-		{
-			System.out.println(indent +currentSC);
-			currentSC = accessSC.getSC(studentNumber);
-		}
-	}
-
-	public static void processGetCS()
-	{
-		AccessSC accessSC;
-		
-		accessSC = new AccessSC();
-		currentCS = accessSC.getCS(courseNumber);			
-		while (currentCS != null)
-		{
-			System.out.println(indent +currentCS);
-			currentCS = accessSC.getCS(courseNumber);
+			System.out.println("Invalid input. Please use as 'get <Recipe Name>'");
 		}
 	}
 }
