@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SRSYS</string>
+    <string name="app_name">Recimeal</string>
     <string name= "default_title">No Title Found</string>
     <string name="default_description">No Description Found</string>
     <string name="default_instructions">No Instructions Found</string>
