@@ -35,4 +35,9 @@ public class Ingredient {
         return false;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public String getUnit(){return this.unit;}
 }

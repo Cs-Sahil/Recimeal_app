@@ -36,6 +36,10 @@ public class Recipe {
         ingredients = new TreeMap<>();
         this.description = description;
     }
+
+    public Map<String, Integer> getIngredients(){return this.ingredients;}
+
+
     /*methods to add ingredient into the recipe, there are two versions:
     1. The ingredient is already in the app data
         We simply add the name and the amount to the ingredients map
