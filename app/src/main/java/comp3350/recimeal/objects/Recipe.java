@@ -71,10 +71,7 @@ public class Recipe {
         }
     }
 
-    //version 2 (not implemented yet!)
-    public boolean addIngred(String name, int amount, String unit){
-        return false;
-    }
+
 
     @Override
     public String toString() {
