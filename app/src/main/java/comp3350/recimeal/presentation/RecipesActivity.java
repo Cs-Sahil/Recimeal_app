@@ -3,7 +3,12 @@ package comp3350.recimeal.presentation;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -16,8 +21,9 @@ import comp3350.recimeal.objects.Recipe;
 public class RecipesActivity extends Activity {
 
     private AccessRecipes accessRecipes;
-    private List<Recipe> recipeList;
-    private ArrayAdapter<Recipe> recipeArrayAdapter;
+    Recipe recipeToDisplay;
+    private String[] ingredientArray;
+    private ArrayAdapter<String> ingredientArrayAdapter;
     private int selectedRecipePosition = -1;
 
     TextView recipeTitle;
@@ -29,18 +35,42 @@ public class RecipesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
         Intent recipeInfo = getIntent();//.getExtras();
+        recipeToDisplay = (Recipe)recipeInfo.getParcelableExtra("RecipeToRead");
         recipeTitle = (TextView)findViewById(R.id.textRecipeTitle);
         recipeDescription = (TextView)findViewById(R.id.textRecipeDescription);
         recipeInstruct = (TextView)findViewById(R.id.textRecipeInstruct);
         if(recipeInfo!= null) {
-            String newInfo[] = recipeInfo.getStringArrayExtra("RecipeToRead");
-
-            updateTitle(newInfo[0]);
-            updateDescription(newInfo[1]);
-            updateInstruct(newInfo[2]);
+            updateTitle(recipeToDisplay.getRecipeName());
+            updateDescription(recipeToDisplay.getRecipeDescription());
+            updateInstruct(recipeToDisplay.getRecipeInstruction());
 
         }
-       // accessRecipes = new AccessRecipes();
+        try {
+            ingredientArray = recipeToDisplay.getIngredientList();
+            ingredientArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, ingredientArray)
+            {
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+
+                    TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                    TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+                    text1.setText(ingredientArray[position]);
+                    text2.setText(Integer.toString(recipeToDisplay.getIngredientAmount(ingredientArray[position])));
+
+                    return view;
+                }
+            };
+
+            final ListView listView = (ListView)findViewById(R.id.listIngredients);
+            listView.setAdapter(ingredientArrayAdapter);
+        }
+        catch (final Exception e)
+        {
+            Messages.fatalError(this, e.getMessage());
+        }
+
     }
 
     private void updateTitle(String newTitle) {

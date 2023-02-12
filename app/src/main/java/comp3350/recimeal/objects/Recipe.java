@@ -1,9 +1,14 @@
 package comp3350.recimeal.objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Recipe {
+public class Recipe implements Parcelable {
 
     private final static String DEFAULT_DESCRIPTION = "No Description Given";
     private final String name;
@@ -36,9 +41,33 @@ public class Recipe {
         ingredients = new TreeMap<>();
         this.description = description;
     }
+    protected Recipe(Parcel in){
+        name = in.readString();
+        instruction = in.readString();
+        description = in.readString();
+        int mapSize = in.readInt();
+        ingredients =  new TreeMap<String, Integer>();
+        for(int i =0; i< mapSize; i++)
+        {
+            this.addIngred( in.readString(), in.readInt());
+        }
+    }
+
+    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
+        @Override
+        public Recipe createFromParcel(Parcel in) {
+            return new Recipe(in);
+        }
+
+        @Override
+        public Recipe[] newArray(int size) {
+            return new Recipe[size];
+        }
+    };
 
     public Map<String, Integer> getIngredients(){return this.ingredients;}
-
+    public String[] getIngredientList(){ return this.ingredients.keySet().toArray(new String[0]);}
+    public int getIngredientAmount(String ingredient){return this.ingredients.get(ingredient);}
 
     /*methods to add ingredient into the recipe, there are two versions:
     1. The ingredient is already in the app data
@@ -80,6 +109,23 @@ public class Recipe {
     public String toString() {
 
         return this.name;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(instruction);
+        parcel.writeString(description);
+        parcel.writeInt(ingredients.size());
+        for(Map.Entry<String,Integer> mover : ingredients.entrySet()){
+            parcel.writeString(mover.getKey());
+            parcel.writeInt(mover.getValue());
+        }
     }
 }
 

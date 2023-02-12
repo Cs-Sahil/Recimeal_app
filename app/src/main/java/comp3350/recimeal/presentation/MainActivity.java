@@ -3,6 +3,7 @@ package comp3350.recimeal.presentation;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
 
 import java.util.List;
 import java.util.Locale;
@@ -74,8 +76,8 @@ public class MainActivity extends Activity {
 
         //this makes it change 'scenes' when something picked
         Intent recipeIntent = new Intent(this, RecipesActivity.class);
-        String recipeInfo[] = new String[] {selected.getRecipeName(),selected.getRecipeDescription(), selected.getRecipeInstruction()};
-        recipeIntent.putExtra("RecipeToRead",recipeInfo);
+        //String recipeInfo[] = new String[] {selected.getRecipeName(),selected.getRecipeDescription(), selected.getRecipeInstruction()};
+        recipeIntent.putExtra("RecipeToRead",(Parcelable)selected);
         this.startActivity(recipeIntent);
     }
 

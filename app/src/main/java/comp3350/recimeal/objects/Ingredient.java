@@ -2,7 +2,7 @@ package comp3350.recimeal.objects;
 
 import java.util.Objects;
 
-public class Ingredient {
+public class Ingredient{
 
     private final String name;
     private final String unit;

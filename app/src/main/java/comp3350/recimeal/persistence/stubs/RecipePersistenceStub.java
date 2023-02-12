@@ -27,12 +27,18 @@ public class RecipePersistenceStub implements RecipePersistence{
 
     public RecipePersistenceStub() {
         this.recipes = new ArrayList<>();
-        
         recipes.add(new Recipe("Fried Rice",friedRiceInstructions));
         recipes.add(new Recipe("Omelette",omeleteIntructions));
         recipes.add(new Recipe("Brownies", brownieInstructions));
         recipes.add(new Recipe("Blueberry Muffins",muffinInstructions,"Simple, fluffy and tasty!"));
-        
+        recipes.get(0).addIngred("Fries", 3);
+        recipes.get(0).addIngred("Rice", 12);
+        recipes.get(1).addIngred("Eggs", 4);
+        recipes.get(1).addIngred("Cheese", 7);
+        recipes.get(1).addIngred("pepper", 16);
+        recipes.get(2).addIngred("Flour", 100);
+        recipes.get(3).addIngred("Muffins", 12);
+        recipes.get(3).addIngred("Blueberries", 24);
     }
 
     @Override
