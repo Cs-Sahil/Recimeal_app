@@ -22,13 +22,16 @@ Contains the **AccessRecipes** class, which handles interaction with the Recipe 
 
 ### Objects (Domain Specific Objects)
 **Recipe** class holds information about a recipe, including name, instruction and map of ingredients.  It has a method to add ingredients and retrieve its own attributes.
-**Ingredient** is a class with name and amount for an ingredient on the recipe.
+**Ingredient** is a class with name and unit of measurement for an ingredient on the recipe.
 
 ### Persistance (Data Layer)
 **RecipePersistance** is a stub class that allows insertion, deletion and updating for a stub database.  It keeps this data in an ArrayList of *Recipe*.  This list serves as the list of recipes the user can browse through and view.
 
 ### Presentation (View/UI Layer)
 Contains classes for the visual GUI of the activities.
+
+### Tests
+To run all the tests, in android studio, right click the `app/src/test/java/comp3350/recimeal/tests` folder and click 'run tests' in the drop down menu.
 
 ## Diagram
 Please view ARCHITECHTURE_iter1_diagram.png in the root directory.
