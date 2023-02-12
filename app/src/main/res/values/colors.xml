@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="viridisYellow1">#e2fa5b</color>
+    <color name="viridisYellow2">#f7ca44</color>
+    <color name="viridisOrange1">#f9a142</color>
+    <color name="viridisOrange2">#f68f46</color>
+    <color name="viridisPink1">#de6f65</color>
+    <color name="viridisPink2">#b8627d</color>
+    <color name="viridisPurple1">#a65c85</color>
+    <color name="viridisPurple2">#7e4e90</color>
+    <color name="viridisDeepPurple1">#593d9c</color>
+    <color name="viridisDeepPurple2">#403891</color>
+    <color name="viridisDeepBlue1">#13306d</color>
+    <color name="viridisDeepBlue2">#042333</color>
+</resources>
