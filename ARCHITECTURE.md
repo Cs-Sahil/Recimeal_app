@@ -30,5 +30,8 @@ Contains the **AccessRecipes** class, which handles interaction with the Recipe 
 ### Presentation (View/UI Layer)
 Contains classes for the visual GUI of the activities.
 
+### Tests
+To run all the tests, in android studio, right click the `app/src/test/java/comp3350/recimeal/tests` folder and click 'run tests' in the drop down menu.
+
 ## Diagram
 Please view ARCHITECHTURE_iter1_diagram.png in the root directory.
