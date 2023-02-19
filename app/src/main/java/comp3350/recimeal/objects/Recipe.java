@@ -15,11 +15,11 @@ public class Recipe implements Parcelable {
     private String instruction;
     //a short description of the recipe, shouldn't be more than 50 characters
     private String description;
-    //stores the ingredients name and their amounts, implemented with Treemap
-    private Map<String, Integer> ingredients;
+    //stores the ingredients id and their amounts, implemented with Treemap
+    private Map<Integer, Integer> ingredients;
 
     //a complete constructor
-    public Recipe(final String name, final String instruction, final String description,  Map<String, Integer> ingredients){
+    public Recipe(final String name, final String instruction, final String description,  Map<Integer, Integer> ingredients){
         this.name = name;
         this.instruction = instruction;
         this.description = description;
@@ -46,10 +46,10 @@ public class Recipe implements Parcelable {
         instruction = in.readString();
         description = in.readString();
         int mapSize = in.readInt();
-        ingredients =  new TreeMap<String, Integer>();
+        ingredients =  new TreeMap<Integer, Integer>();
         for(int i =0; i< mapSize; i++)
         {
-            this.addIngred( in.readString(), in.readInt());
+            this.addIngred(Integer.valueOf(in.readString()), in.readInt());
         }
     }
 
@@ -65,7 +65,7 @@ public class Recipe implements Parcelable {
         }
     };
 
-    public Map<String, Integer> getIngredients(){return this.ingredients;}
+    public Map<Integer, Integer> getIngredients(){return this.ingredients;}
     public String[] getIngredientList(){ return this.ingredients.keySet().toArray(new String[0]);}
     public int getIngredientAmount(String ingredient){return this.ingredients.get(ingredient);}
 
@@ -90,12 +90,12 @@ public class Recipe implements Parcelable {
     }
     public String getRecipeInstruction() { return (this.instruction);}
 
-    public boolean addIngred(String name, int amount){
+    public boolean addIngred(Integer id, int amount){
         //if the ingredient is already in the map, don't add it again
-        if(ingredients.containsKey(name))
+        if(ingredients.containsKey(id))
             return false;
         else{
-            ingredients.put(name, amount);
+            ingredients.put(id, amount);
             return true;
         }
     }
@@ -119,8 +119,8 @@ public class Recipe implements Parcelable {
         parcel.writeString(instruction);
         parcel.writeString(description);
         parcel.writeInt(ingredients.size());
-        for(Map.Entry<String,Integer> mover : ingredients.entrySet()){
-            parcel.writeString(mover.getKey());
+        for(Map.Entry<Integer, Integer> mover : ingredients.entrySet()){
+            parcel.writeString(String.valueOf(mover.getKey()));
             parcel.writeInt(mover.getValue());
         }
     }
