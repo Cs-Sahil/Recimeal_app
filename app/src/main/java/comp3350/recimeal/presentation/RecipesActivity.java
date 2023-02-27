@@ -18,8 +18,8 @@ public class RecipesActivity extends Activity {
 
     private AccessRecipes accessRecipes;
     Recipe recipeToDisplay;
-    private String[] ingredientArray;
-    private ArrayAdapter<String> ingredientArrayAdapter;
+    private Integer[] ingredientArray;
+    private ArrayAdapter<Integer> ingredientArrayAdapter;
     private int selectedRecipePosition = -1;
 
     TextView recipeTitle;
@@ -43,7 +43,7 @@ public class RecipesActivity extends Activity {
         }
         try {
             ingredientArray = recipeToDisplay.getIngredientList();
-            ingredientArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, ingredientArray)
+            ingredientArrayAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, ingredientArray)
             {
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
@@ -52,7 +52,7 @@ public class RecipesActivity extends Activity {
                     TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                     TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
-                    text1.setText(ingredientArray[position]);
+                    text1.setText(Integer.toString(ingredientArray[position]));
                     text2.setText(Integer.toString(recipeToDisplay.getIngredientAmount(ingredientArray[position])));
 
                     return view;
