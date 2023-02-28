@@ -28,6 +28,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.CreateActivity"
+            android:label="CreateActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.recimeal.presentation.CreateActivity" />
+        </activity>
     </application>
 
 </manifest>

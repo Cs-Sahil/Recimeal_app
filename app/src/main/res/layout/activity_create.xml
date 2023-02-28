@@ -1,0 +1,186 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="comp3350.recimeal.presentation.CreateActivity">
+
+
+    <TextView
+        android:id="@+id/createTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Create Recipe"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/recipeScroll"
+        android:layout_width="match_parent"
+        android:layout_height="700dp"
+        android:layout_marginTop="12dp"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createTitle">
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/createTitleTitle"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="@string/create_title"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/createTitleText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/virdisGray1"
+                android:hint="Enter Recipe Title (50 char max)"
+                android:maxLength="50" />
+
+            <TextView
+                android:id="@+id/createDescriptionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="@string/create_description"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/createDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/virdisGray1"
+                android:gravity="left"
+                android:hint="Enter Recipe Description (150 char max)"
+                android:lines="5"
+                android:maxLength="150" />
+
+            <TextView
+                android:id="@+id/createIngredientTitle"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="@string/create_ingredients"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TableLayout
+                android:id="@+id/ingredientTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:padding="3dip"
+                        android:text="Amount"
+                        android:textAppearance="?android:textAppearanceMedium"
+                        android:textColor="@color/virdisGray2" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:paddingLeft="16dip"
+                        android:paddingTop="3dip"
+                        android:paddingBottom="3dip"
+                        android:text="Ingredient"
+                        android:textAppearance="?android:textAppearanceMedium"
+                        android:textColor="@color/virdisGray2" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/addIngredientRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp">
+
+                    <EditText
+                        android:id="@+id/createIngredientAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_column="0"
+                        android:background="@color/virdisGray1"
+                        android:hint="ex: 1 cup"
+                        android:maxLength="20"
+                        android:paddingRight="3dip" />
+
+                    <EditText
+                        android:id="@+id/createIngredientName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_column="1"
+                        android:background="@color/virdisGray1"
+                        android:hint="ex: mashed blueberries"
+                        android:maxLength="50"
+                        android:paddingLeft="3dip" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:adjustViewBounds="true"
+                        android:maxWidth="32dp"
+                        android:maxHeight="64dp"
+                        android:onClick="addIngredientToTable"
+                        android:scaleType="fitCenter"
+                        android:src="@android:drawable/ic_input_add" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/createPrepTitle"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="@string/create_instructions"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/createPrepText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/virdisGray1"
+                android:gravity="left"
+                android:hint="Enter Recipe Instructions"
+                android:lines="15" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="158dp"
+        android:layout_height="44dp"
+        android:text="@string/create"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
