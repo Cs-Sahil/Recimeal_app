@@ -31,4 +31,10 @@
     <string name="search_field">Search field</string>
     <string name="search_hint">Filter&#8230;</string>
 
+    <string name="create_title">Recipe Title</string>
+    <string name="create_description">Description</string>
+    <string name="create_instructions">Preparation Instructions</string>
+    <string name="create_ingredients">Ingredients</string>
+    <string name="create_button">Create</string>
+
 </resources>

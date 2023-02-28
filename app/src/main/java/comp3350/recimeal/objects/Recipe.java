@@ -100,8 +100,6 @@ public class Recipe implements Parcelable {
         }
     }
 
-
-
     @Override
     public String toString() {
 
