@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import comp3350.recimeal.R;
+import comp3350.recimeal.application.Services;
+import comp3350.recimeal.objects.Ingredient;
 import comp3350.recimeal.objects.business.AccessRecipes;
 import comp3350.recimeal.objects.Recipe;
 
@@ -52,7 +54,9 @@ public class RecipesActivity extends Activity {
                     TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                     TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
-                    text1.setText(Integer.toString(ingredientArray[position]));
+                    String ingredientName = Services.getIngredientPersistence().getIngredientById(ingredientArray[position]).getName();
+
+                    text1.setText(ingredientName);
                     text2.setText(Integer.toString(recipeToDisplay.getIngredientAmount(ingredientArray[position])));
 
                     return view;

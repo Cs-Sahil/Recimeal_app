@@ -74,17 +74,6 @@ public class Recipe implements Parcelable {
     public Integer[] getIngredientList(){ return this.ingredients.keySet().toArray(new Integer[0]);}
     public int getIngredientAmount(int ingredient){return this.ingredients.get(ingredient);}
 
-    /*methods to add ingredient into the recipe, there are two versions:
-    1. The ingredient is already in the app data
-        We simply add the name and the amount to the ingredients map
-    2. It is a new ingredient
-         We create a new Ingredient Object, add it to the app data, then add the name and the amount into the map
-
-    Both return true if successfully added
-     Caller is responsible for deciding which one should be used
-     */
-
-    //version 1
     public int getRecipeId(){return this.id;}
     public String getRecipeName()
     {
@@ -96,6 +85,7 @@ public class Recipe implements Parcelable {
     }
     public String getRecipeInstruction() { return (this.instruction);}
 
+    //add recipe to the recipe
     public boolean addIngred(Integer id, int amount){
         //if the ingredient is already in the map, don't add it again
         if(ingredients.containsKey(id))
@@ -106,11 +96,8 @@ public class Recipe implements Parcelable {
         }
     }
 
-
-
     @Override
     public String toString() {
-
         return this.name;
     }
 
