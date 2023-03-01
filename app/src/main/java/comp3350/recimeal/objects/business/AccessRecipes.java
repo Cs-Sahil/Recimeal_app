@@ -1,4 +1,4 @@
-package comp3350.recimeal.business;
+package comp3350.recimeal.objects.business;
 
 import android.os.Bundle;
 

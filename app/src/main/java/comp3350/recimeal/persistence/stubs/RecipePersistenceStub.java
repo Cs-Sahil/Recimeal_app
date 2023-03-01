@@ -27,24 +27,33 @@ public class RecipePersistenceStub implements RecipePersistence{
 
     public RecipePersistenceStub() {
         this.recipes = new ArrayList<>();
-        recipes.add(new Recipe("Fried Rice",friedRiceInstructions));
-        recipes.add(new Recipe("Omelette",omeleteIntructions));
-        recipes.add(new Recipe("Brownies", brownieInstructions));
-        recipes.add(new Recipe("Blueberry Muffins",muffinInstructions,"Simple, fluffy and tasty!"));
-        recipes.get(0).addIngred("Fries", 3);
-        recipes.get(0).addIngred("Rice", 12);
-        recipes.get(1).addIngred("Eggs", 4);
-        recipes.get(1).addIngred("Cheese", 7);
-        recipes.get(1).addIngred("pepper", 16);
-        recipes.get(2).addIngred("Flour", 100);
-        recipes.get(3).addIngred("Muffins", 12);
-        recipes.get(3).addIngred("Blueberries", 24);
+        recipes.add(new Recipe(1, "Fried Rice",friedRiceInstructions));
+        recipes.add(new Recipe(2,"Omelette",omeleteIntructions));
+        recipes.add(new Recipe(3, "Brownies", brownieInstructions));
+        recipes.add(new Recipe(4, "Blueberry Muffins",muffinInstructions,"Simple, fluffy and tasty!"));
+        recipes.get(0).addIngred(1, 3);
+        recipes.get(0).addIngred(2, 12);
+        recipes.get(1).addIngred(3, 4);
+        recipes.get(1).addIngred(4, 7);
+        recipes.get(1).addIngred(5, 16);
+        recipes.get(2).addIngred(6, 100);
+        recipes.get(3).addIngred(7, 12);
+        recipes.get(3).addIngred(8, 24);
     }
 
     @Override
     //getRecipeSequential() return the all the recipes store in the list
     public List<Recipe> getRecipeSequential() {
         return Collections.unmodifiableList(recipes);
+    }
+
+    @Override
+    public Recipe getRecipeById(int id) {
+        for(Recipe recipe: recipes){
+            if(recipe.getRecipeId() == id)
+                return recipe;
+        }
+        return null;
     }
 
     @Override

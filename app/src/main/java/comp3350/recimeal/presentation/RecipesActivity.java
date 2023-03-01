@@ -5,16 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import comp3350.recimeal.R;
-import comp3350.recimeal.business.AccessRecipes;
+import comp3350.recimeal.application.Services;
+import comp3350.recimeal.objects.Ingredient;
+import comp3350.recimeal.objects.business.AccessRecipes;
 import comp3350.recimeal.objects.Recipe;
 
 
@@ -22,8 +20,8 @@ public class RecipesActivity extends Activity {
 
     private AccessRecipes accessRecipes;
     Recipe recipeToDisplay;
-    private String[] ingredientArray;
-    private ArrayAdapter<String> ingredientArrayAdapter;
+    private Integer[] ingredientArray;
+    private ArrayAdapter<Integer> ingredientArrayAdapter;
     private int selectedRecipePosition = -1;
 
     TextView recipeTitle;
@@ -47,7 +45,7 @@ public class RecipesActivity extends Activity {
         }
         try {
             ingredientArray = recipeToDisplay.getIngredientList();
-            ingredientArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, ingredientArray)
+            ingredientArrayAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, ingredientArray)
             {
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
@@ -56,7 +54,9 @@ public class RecipesActivity extends Activity {
                     TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                     TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
-                    text1.setText(ingredientArray[position]);
+                    String ingredientName = Services.getIngredientPersistence().getIngredientById(ingredientArray[position]).getName();
+
+                    text1.setText(ingredientName);
                     text2.setText(Integer.toString(recipeToDisplay.getIngredientAmount(ingredientArray[position])));
 
                     return view;

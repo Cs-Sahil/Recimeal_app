@@ -16,8 +16,8 @@ public class IngredientTest {
 
     @Before
     public void setup(){
-        ingredient1 = new Ingredient("Ingredient1");
-        ingredient2 = new Ingredient("Ingredient2", "kg");
+        ingredient1 = new Ingredient("Ingredient1", 1);
+        ingredient2 = new Ingredient("Ingredient2", 2, "kg");
     }
 
     @Test
@@ -40,7 +40,7 @@ public class IngredientTest {
     @Test
     public void testEqual(){
 
-        Ingredient ingredient3 = new Ingredient("Ingredient1", "g");
+        Ingredient ingredient3 = new Ingredient("Ingredient1", 1, "g");
 
         assertTrue("Same ingredient should be equal", ingredient1.equals(ingredient1));
         assertTrue("Ingredients with the same name should be equal", ingredient1.equals(ingredient3));

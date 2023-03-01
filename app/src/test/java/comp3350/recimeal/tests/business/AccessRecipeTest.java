@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import comp3350.recimeal.business.AccessRecipes;
+import comp3350.recimeal.objects.business.AccessRecipes;
 import comp3350.recimeal.objects.Recipe;
 
 public class AccessRecipeTest {
