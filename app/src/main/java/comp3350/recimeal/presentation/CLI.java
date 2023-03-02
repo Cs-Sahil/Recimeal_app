@@ -5,7 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
-import comp3350.recimeal.business.AccessRecipes;
+import comp3350.recimeal.objects.business.AccessRecipes;
 import comp3350.recimeal.objects.Recipe;
 
 public class CLI  // command-line interface
