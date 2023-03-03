@@ -143,7 +143,10 @@ public class CreateActivity extends Activity {
         EditText desc = (EditText) findViewById(R.id.createDescriptionText);
         EditText prep = (EditText) findViewById(R.id.createPrepText);
 
-        input =  new Recipe(title.getText().toString(),prep.getText().toString(),desc.getText().toString());
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // MUST FIX ID
+        input =  new Recipe( 0, title.getText().toString(),prep.getText().toString(),desc.getText().toString());
+        //
 
         //get ingredients
         for(int i = ingStart;i<ingEnd;i++)
@@ -158,7 +161,11 @@ public class CreateActivity extends Activity {
                     TextView ingName = (TextView) row.getChildAt(1);
 
                     //we would add ingredients here, but recipe does not accept a string for amount
-                    input.addIngred(ingAmount.getText().toString(),5);
+
+                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    // must be updated
+                    //input.addIngred( ingAmount.getText().toString(),5);
+                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 }
                 catch (Exception e)
                 {

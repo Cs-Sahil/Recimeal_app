@@ -4,7 +4,7 @@ import comp3350.recimeal.persistence.IngredientPersistence;
 import comp3350.recimeal.persistence.RecipePersistence;
 import comp3350.recimeal.persistence.stubs.IngredientPersistenceStub;
 import comp3350.recimeal.persistence.stubs.RecipePersistenceStub;
-
+import comp3350.recimeal.persistence.hsqldb.RecipeDBPersistence;
 public class Services
 {
     private static RecipePersistence recipePersistence = null;
@@ -14,7 +14,8 @@ public class Services
     {
         if (recipePersistence == null)
         {
-            recipePersistence = new RecipePersistenceStub();
+            recipePersistence = new RecipeDBPersistence(Main.getDBPathName());
+            //recipePersistence = new RecipePersistenceStub();
         }
 
 
