@@ -24,7 +24,7 @@ import java.util.Locale;
 
 import comp3350.recimeal.R;
 import comp3350.recimeal.application.Main;
-import comp3350.recimeal.objects.business.AccessRecipes;
+import comp3350.recimeal.business.AccessRecipes;
 import comp3350.recimeal.objects.Recipe;
 
 public class MainActivity extends Activity {

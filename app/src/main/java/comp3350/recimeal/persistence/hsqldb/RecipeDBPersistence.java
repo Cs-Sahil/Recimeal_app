@@ -66,12 +66,42 @@ public class RecipeDBPersistence implements RecipePersistence {
 
     @Override
     public Recipe getRecipeById(int id) {
+        try(final Connection dbConnect = connectDB();){
+            final Statement state = dbConnect.createStatement();
+            String query = String.format("SELECT * FROM Recipes WHERE id = %d", id);
+            final ResultSet rset = state.executeQuery(query);
+            return fromResultSet(rset);
+        }catch (final SQLException e){
+
+        }
         return null;
     }
 
     @Override
     public Recipe insertRecipe(Recipe newRecipe) {
-        return null;
+        //get the fields from the object
+        int newId = newRecipe.getRecipeId();
+        String newName = newRecipe.getRecipeName();
+        String newDescription = newRecipe.getRecipeDescription();
+        String newInstruction = newRecipe.getRecipeInstruction();
+
+        //check if there's a recipe with the same id, if there is, give the recipe a new id
+        try(final Connection dbConnect = connectDB();){
+            final Statement state = dbConnect.createStatement();
+            String select = String.format("SELECT * FROM Recipes WHERE id = %d", newId);
+            String insert = "";
+            final ResultSet rset = state.executeQuery(select);
+            //if not empty, assign a valid id
+            if(rset.next()){
+                final ResultSet maxId = state.executeQuery("SELECT MAX(id) FROM Recipes");
+                newId = maxId.getInt("id") + 1;
+            }
+            insert = String.format("INSERT INTO Recipes(Title,Description,Instructions,Style,Type,UserCreated,Favorited) VALUES(%s, %s, %s, %s, %s, %d, %d)", newName, newDescription, newInstruction, "", "", 0, 0);
+            state.execute(insert);
+        }catch (final SQLException e){
+
+        }
+        return newRecipe;
     }
 
     @Override
