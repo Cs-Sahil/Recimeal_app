@@ -1,4 +1,4 @@
-package comp3350.recimeal.objects.business;
+package comp3350.recimeal.business;
 
 import java.util.ArrayList;
 import java.util.Collections;
