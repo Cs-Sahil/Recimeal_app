@@ -15,7 +15,7 @@ import comp3350.recimeal.objects.Recipe;
 public class RecipeTest {
 
     private List<Ingredient> ingredients;
-    private Map<String, Integer> recipeIngred;
+    private Map<Integer, Integer> recipeIngred;
     private final int listLength = 5;
 
     @Before
@@ -23,15 +23,15 @@ public class RecipeTest {
         ingredients = new ArrayList<>();
         recipeIngred = new TreeMap<>();
 
-        ingredients.add(new Ingredient("ingred1", "unit1"));
-        ingredients.add(new Ingredient("ingred2", "unit2"));
-        ingredients.add(new Ingredient("ingred3", "unit3"));
-        ingredients.add(new Ingredient("ingred4", "unit4"));
-        ingredients.add(new Ingredient("ingred5", "unit5"));
+        ingredients.add(new Ingredient("ingred1", 1, "unit1"));
+        ingredients.add(new Ingredient("ingred2", 2, "unit2"));
+        ingredients.add(new Ingredient("ingred3", 3, "unit3"));
+        ingredients.add(new Ingredient("ingred4", 4, "unit4"));
+        ingredients.add(new Ingredient("ingred5", 5, "unit5"));
 
-        recipeIngred.put((ingredients.get(0)).getName(), 10);
-        recipeIngred.put((ingredients.get(1)).getName(), 10);
-        recipeIngred.put((ingredients.get(2)).getName(), 10);
+        recipeIngred.put((ingredients.get(0)).getId(), 10);
+        recipeIngred.put((ingredients.get(1)).getId(), 10);
+        recipeIngred.put((ingredients.get(2)).getId(), 10);
 
     }
 
@@ -55,15 +55,15 @@ public class RecipeTest {
         assertEquals("Should get the name of \"Recipe1\"!", "Recipe1", recipe1.getRecipeName());
         assertEquals("Should get the instruction of \"Instructions here\"!", "Instructions here", recipe1.getRecipeInstruction());
         assertEquals("Should get the description of \"Description here\"!", "Description here", recipe1.getRecipeDescription());
-        assertTrue("Should have the first ingredient amount!", (recipe1.getIngredients().get("ingred1") == 10));
+        assertTrue("Should have the first ingredient amount!", (recipe1.getIngredients().get(1) == 10));
     }
 
     @Test
     public void testAddIngred(){
         Recipe recipe1 = new Recipe("Recipe1", "Instructions here", "Description here", recipeIngred);
 
-        assertTrue("New ingredient should be added", recipe1.addIngred("ingred6", 10));
-        assertFalse("Existing ingredient should be ignored", recipe1.addIngred("ingred1", 10));
+        assertTrue("New ingredient should be added", recipe1.addIngred(6, 10));
+        assertFalse("Existing ingredient should be ignored", recipe1.addIngred(1, 10));
 
     }
 }

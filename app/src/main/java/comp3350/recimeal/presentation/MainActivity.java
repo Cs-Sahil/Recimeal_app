@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Locale;
 
 import comp3350.recimeal.R;
-import comp3350.recimeal.business.AccessRecipes;
+import comp3350.recimeal.objects.business.AccessRecipes;
 import comp3350.recimeal.objects.Recipe;
 
 public class MainActivity extends Activity {
@@ -81,6 +81,12 @@ public class MainActivity extends Activity {
         this.startActivity(recipeIntent);
     }
 
+    public void addButtonPressed(View view)
+    {
+        Intent addIntent = new Intent(this,CreateActivity.class);
+        this.startActivity(addIntent);
+    }
+
     public void searchButtonPressed(View view)
     {
         EditText searchBar = (EditText) findViewById(R.id.searchRecipeText);
@@ -124,9 +130,5 @@ public class MainActivity extends Activity {
         {
             Messages.fatalError(this, e.getMessage());
         }
-        /*String s = "";
-        for(int i=0;i<searchList.size();i++)
-            s+=searchList.get(i).getRecipeName();
-        searchBar.setText(s);*/
     }
 }
