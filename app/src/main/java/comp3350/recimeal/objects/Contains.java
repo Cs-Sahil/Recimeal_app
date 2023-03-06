@@ -2,7 +2,7 @@ package comp3350.recimeal.objects;
 
 public class Contains {
 
-    private int amount;
+    private float amount;
 
     private final String measurement;
 
