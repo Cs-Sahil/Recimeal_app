@@ -13,6 +13,7 @@ import java.util.List;
 
 import comp3350.recimeal.R;
 import comp3350.recimeal.application.Services;
+import comp3350.recimeal.business.AccessIngredients;
 import comp3350.recimeal.business.AccessRecipes;
 import comp3350.recimeal.objects.Ingredient;
 import comp3350.recimeal.objects.Recipe;
@@ -21,6 +22,7 @@ import comp3350.recimeal.objects.Recipe;
 public class RecipesActivity extends Activity {
 
     private AccessRecipes accessRecipes;
+    private AccessIngredients accessIngredients;
     Recipe recipeToDisplay;
     private List<Ingredient> ingredientList;
     private ArrayAdapter<Ingredient> ingredientArrayAdapter;
@@ -38,6 +40,7 @@ public class RecipesActivity extends Activity {
         int recipeID = b.getInt("RecipeToRead");
 
         accessRecipes = new AccessRecipes();
+        accessIngredients = new AccessIngredients();
         recipeToDisplay = accessRecipes.getRecipeById(recipeID);
 
         recipeTitle = (TextView)findViewById(R.id.textRecipeTitle);
@@ -51,7 +54,7 @@ public class RecipesActivity extends Activity {
 
         }
         try {
-            ingredientList = recipeToDisplay.getIngredients();
+            ingredientList = accessIngredients.getRecipeIngredients(recipeID);//recipeToDisplay.getIngredients();
             ingredientArrayAdapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, ingredientList) {
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {

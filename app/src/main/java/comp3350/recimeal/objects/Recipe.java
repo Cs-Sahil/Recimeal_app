@@ -26,7 +26,6 @@ public class Recipe {
     private String style;
     private String type;
 
-    private List<Ingredient> ingredients;
 
     //a complete constructor
     public Recipe(int id, final String name, final String description , final String instruction, String style, String type, boolean userCreated, boolean favorited, String notes  ){
@@ -34,7 +33,6 @@ public class Recipe {
         this.name = name;
         this.instruction = instruction;
         this.description = description;
-        this.ingredients = new ArrayList<Ingredient>();
         this.userCreated = userCreated;
         this.favorited = favorited;
         this.style = style;
@@ -47,14 +45,12 @@ public class Recipe {
         this.name = name;
         this.instruction = instruction;
         this.description = description;
-        this.ingredients = new ArrayList<Ingredient>();
         this.userCreated = false;
         this.favorited = false;
         this.style = null;
         this.type = null;
         this.notes = null;
     }
-    public List<Ingredient> getIngredients(){return this.ingredients;}
     public int getRecipeId(){return this.id;}
     public String getRecipeName()
     {

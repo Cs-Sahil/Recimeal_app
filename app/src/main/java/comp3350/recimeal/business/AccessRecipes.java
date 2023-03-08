@@ -34,7 +34,6 @@ public class AccessRecipes
 
     public List<Recipe> getRecipes()
     {
-        fillIngredients();
         return Collections.unmodifiableList(recipes);
     }
     public Recipe getRecipeById(int recipeId)
@@ -52,30 +51,6 @@ public class AccessRecipes
         return toSender;
     }
 
-
-    private void fillIngredients()
-    {
-        for(int i =0; i< recipes.size();i++) {
-
-            List<Ingredient> ingredients = accessIngredients.getRecipeIngredients(recipes.get(i).getRecipeId());
-
-            for(int j = 0; j < ingredients.size();j++)
-            {
-                addToRecipe(ingredients.get(j),recipes.get(i));
-            }
-
-        }
-
-    }
-
-    private void addToRecipe(Ingredient toAdd, Recipe addTo)
-    {
-       List<Ingredient> ingredients =  addTo.getIngredients();
-       if(ingredients!=null)
-       {
-           ingredients.add(toAdd);
-       }
-    }
     //returns a subset of recipes from the provided list that contain the search term
     //for now it only looks for the term in the recipe name. Case insensitive.
     //Does not modify fullList, but returns it if no search term is provided.
