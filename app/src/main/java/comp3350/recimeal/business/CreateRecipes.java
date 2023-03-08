@@ -19,9 +19,8 @@ public class CreateRecipes {
         int newId = recipePersistence.getNewestId();
         Recipe newRecipe = new Recipe(newId, name, instruction, description, style, type, true, false, "");
         //now insert the ingredients
-        for(int i = 0; i < ingredientList.size(); i++){
-            newRecipe.addIngredient(ingredientList.get(i));
-        }
+        newRecipe.addIngredients(ingredientList);
+
 
         recipePersistence.insertRecipe(newRecipe);
     }
