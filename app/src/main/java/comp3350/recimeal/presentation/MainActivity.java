@@ -79,6 +79,13 @@ public class MainActivity extends Activity {
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        selectedRecipePosition = -1;
+    }
+
     private void copyDatabaseToDevice()
     {
         final String DB_PATH = "db";

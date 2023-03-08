@@ -41,9 +41,9 @@ public class IngredientPersistenceStub implements IngredientPersistence {
     }
 
     @Override
-    public Ingredient insertIngredient(Ingredient newIngredient) {
+    public int insertIngredient(Ingredient newIngredient, int recipeID) {
         ingredients.add(newIngredient);
-        return newIngredient;
+        return 0;
     }
 
     @Override
