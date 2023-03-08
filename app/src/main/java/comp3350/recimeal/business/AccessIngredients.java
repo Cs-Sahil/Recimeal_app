@@ -24,7 +24,10 @@ public class AccessIngredients {
         ingredient = null;
         currIngredient = 0;
     }
-
+    public List<Ingredient> getRecipeIngredients( int recipeId )
+    {
+        return ingredientPersistence.getRecipesIngredients(recipeId);
+    }
     public List<Ingredient> getRecipes()
     {
         return Collections.unmodifiableList(ingredients);

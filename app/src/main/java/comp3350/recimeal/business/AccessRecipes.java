@@ -16,6 +16,7 @@ public class AccessRecipes
 {
 
     private RecipePersistence recipePersistence;
+    private AccessIngredients accessIngredients;
     private List<Recipe> recipes;
     private Recipe recipe;
     private int currentRecipe;
@@ -24,15 +25,24 @@ public class AccessRecipes
     {
         recipePersistence = Services.getRecipePersistence();
         recipes = recipePersistence.getRecipeSequential();
+        accessIngredients = new AccessIngredients();
         recipe = null;
         currentRecipe = 0;
     }
 
     public List<Recipe> getRecipes()
     {
+        fillIngredients();
         return Collections.unmodifiableList(recipes);
     }
 
+    private void fillIngredients()
+    {
+        for(int i =0; i< recipes.size();i++) {
+            recipes.get(i).addIngredients(accessIngredients.getRecipeIngredients(recipes.get(i).getRecipeId()));
+        }
+
+    }
     //returns a subset of recipes from the provided list that contain the search term
     //for now it only looks for the term in the recipe name. Case insensitive.
     //Does not modify fullList, but returns it if no search term is provided.
