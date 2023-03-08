@@ -12,6 +12,7 @@ import android.widget.TextView;
 import comp3350.recimeal.R;
 import comp3350.recimeal.application.Services;
 import comp3350.recimeal.business.AccessRecipes;
+import comp3350.recimeal.objects.Ingredient;
 import comp3350.recimeal.objects.Recipe;
 
 
@@ -43,9 +44,8 @@ public class RecipesActivity extends Activity {
 
         }
         try {
-            ingredientArray = recipeToDisplay.getIngredientList();
-            ingredientArrayAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, ingredientArray)
-            {
+            ingredientArray = recipeToDisplay.getIngredientIds();
+            ingredientArrayAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, ingredientArray) {
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
@@ -53,10 +53,8 @@ public class RecipesActivity extends Activity {
                     TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                     TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
-                    String ingredientName = Services.getIngredientPersistence().getIngredientById(ingredientArray[position]).getName();
-
-                    text1.setText(ingredientName);
-                    text2.setText(Integer.toString(recipeToDisplay.getIngredientAmount(ingredientArray[position])));
+                    text1.setText(recipeToDisplay.getIngredientById(ingredientArray[position]).getName());
+                    text2.setText(recipeToDisplay.getIngredientById(ingredientArray[position]).getAmount() + " " + recipeToDisplay.getIngredientById(ingredientArray[position]).getUnit());
 
                     return view;
                 }

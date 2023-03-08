@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class RecipePersistenceStub implements RecipePersistence{
     private List<Recipe> recipes;
- 
+ /*
     private String friedRiceInstructions = "Add the cooked rice to the pan and stir until well combined with the vegetables and eggs.\n"
             + "Cook for an additional 2-3 minutes, or until the rice is heated through.\n";
     private String omeleteIntructions = "Whisk 2 eggs, add fillings, cook both sides in pan. Serve hot.";
@@ -25,10 +25,11 @@ public class RecipePersistenceStub implements RecipePersistence{
                     "- Fold in the blueberries.\n"+
                     "- Divide batter between muffin cups.\n"+
                     "- Bake 15-20 minutes";
-
+*/
     public RecipePersistenceStub() {
         this.recipes = new ArrayList<>();
-        recipes.add(new Recipe(1, "Fried Rice",friedRiceInstructions));
+        /*
+        recipes.add(new Recipe(1, "Fried Rice",friedRiceInstructions,));
         recipes.add(new Recipe(2,"Omelette",omeleteIntructions));
         recipes.add(new Recipe(3, "Brownies", brownieInstructions));
         recipes.add(new Recipe(4, "Blueberry Muffins",muffinInstructions,"Simple, fluffy and tasty!"));
@@ -40,6 +41,8 @@ public class RecipePersistenceStub implements RecipePersistence{
         recipes.get(2).addIngred(6, 100);
         recipes.get(3).addIngred(7, 12);
         recipes.get(3).addIngred(8, 24);
+         */
+        recipes.add(new Recipe(0, "Spanish Rice and Beans","A flavorful vegetarian meal that can be made in one pot", "Heat oil in a large skillet with a fitted lid over medium. Add onion; cook 5 minutes, until softened. Add garlic, paprika, salt, chili powder, oregano, black pepper, and cayenne; cook 2 minutes, stirring often, until aromatic. Stir in rice; cook 2 minutes, until slightly translucent. Stir in tomatoes, beans, and broth (or water). Bring mixture to a boil, reduce to medium-low, and simmer, covered, until liquid is absorbed and rice is tender, about 25 minutes. Meanwhile, prepare parsley oil (if using) by combining parsley, lemon zest and juice, and olive oil in a small bowl; stir well. Scatter olives over Spanish Beans and Rice and drizzle with parsley oil.","hispanic","Main Course",false,false,null));
     }
 
     @Override
@@ -59,9 +62,9 @@ public class RecipePersistenceStub implements RecipePersistence{
 
     @Override
     // insertRecipe() adds a new recipe in list
-    public Recipe insertRecipe(Recipe newRecipe) {
+    public int insertRecipe(Recipe newRecipe) {
         recipes.add(newRecipe);
-        return newRecipe;
+        return newRecipe.getRecipeId();
     }
 
     @Override

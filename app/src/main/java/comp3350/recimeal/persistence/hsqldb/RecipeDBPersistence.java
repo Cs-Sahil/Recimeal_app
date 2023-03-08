@@ -78,7 +78,7 @@ public class RecipeDBPersistence implements RecipePersistence {
     }
 
     @Override
-    public Recipe insertRecipe(Recipe newRecipe) {
+    public int insertRecipe(Recipe newRecipe) {
         //get the fields from the object
         int newId = newRecipe.getRecipeId();
         String newName = newRecipe.getRecipeName();
@@ -101,7 +101,7 @@ public class RecipeDBPersistence implements RecipePersistence {
         }catch (final SQLException e){
 
         }
-        return newRecipe;
+        return newId;
     }
 
     @Override

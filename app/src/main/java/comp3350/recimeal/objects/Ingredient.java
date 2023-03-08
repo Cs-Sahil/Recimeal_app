@@ -6,25 +6,20 @@ public class Ingredient{
 
     private final int id;
     private final String name;
+    private final float amount;
     private final String unit;
 
-    //constructor for ingredients with unknown measurement
-    public Ingredient(final String name, int id){
+    //constructor for ingredients
+    public Ingredient( int id,final String name, float amount, String unit){
         this.name = name;
         this.id = id;
-        this.unit = "Unknown";
-    }
-
-    public Ingredient(final String name, int id, final String unit){
-        this.name = name;
-        this.id = id;
+        this.amount = amount;
         this.unit = unit;
     }
 
-
     //could be used when displaying recipe information, concatenate with a string of amount
     public String toString(){
-        return String.format("%s  Measurement Unit:%s ", this.name, this.unit);
+        return String.format("%s", this.name);
     }
 
 
@@ -44,5 +39,8 @@ public class Ingredient{
         return this.name;
     }
 
+    public float getAmount(){ return this.amount;}
+
     public String getUnit(){return this.unit;}
+
 }

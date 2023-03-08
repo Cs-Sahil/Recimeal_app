@@ -10,7 +10,7 @@ public interface RecipePersistence {
 
     Recipe getRecipeById(int id);
 
-    Recipe insertRecipe(Recipe newRecipe);
+    int insertRecipe(Recipe newRecipe);
 
     Ingredient insertIngredient( Ingredient newIngredient);
 

@@ -1,11 +1,11 @@
 CREATE TABLE Recipes( 
 	RecipeID INTEGER IDENTITY PRIMARY KEY NOT NULL,
-	Title VARCHAR(127),
-	Description VARCHAR(255),
+	Title VARCHAR(64),
+	Description VARCHAR(256),
 	Instructions VARCHAR(4096),
-	Notes VARCHAR(1023),
-	Style VARCHAR(127),
-	Type VARCHAR(127),
+	Notes VARCHAR(1024),
+	Style VARCHAR(128),
+	Type VARCHAR(128),
 	UserCreated INTEGER,
 	Favorited INTEGER,
 	CONSTRAINT usr_crtd_bool CHECK (UserCreated IN (1,0)),
@@ -20,9 +20,8 @@ CREATE TABLE Ingredients(
 CREATE TABLE Contains(
 	RecipeID INTEGER NOT NULL,
 	IngredientID INTEGER NOT NULL,
-	Amount FLOAT ,
+	Amount FLOAT,
 	UnitOfMeasure VARCHAR(127),
-	Preparation VARCHAR(127),
 	PRIMARY KEY( RecipeID, IngredientID),
 	FOREIGN KEY (RecipeID) REFERENCES Recipes(RecipeID) ON DELETE CASCADE,
 	FOREIGN KEY (IngredientID) REFERENCES Ingredients(IngredientID) ON DELETE CASCADE
@@ -60,7 +59,7 @@ INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (0, 
 INSERT INTO Ingredients(Title) VALUES ('black pepper');
 INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (0, 7, .5, 'teaspoons');
 
-INSERT INTO Ingredients(Title) VALUES ('caynne pepper');
+INSERT INTO Ingredients(Title) VALUES ('cayenne pepper');
 INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (0, 8, .25, 'teaspoons');
 
 INSERT INTO Ingredients(Title) VALUES ('long-grain white rice');
@@ -70,13 +69,13 @@ INSERT INTO Ingredients(Title) VALUES ('fire-roasted diced tomatoes');
 INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (0, 10, 1, '14.5-oz. can');
 
 INSERT INTO Ingredients(Title) VALUES ('kidney beans');
-INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure, Preparation) VALUES (0, 11, 2, '15.5-oz. cans', 'drained and rinsed');
+INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (0, 11, 2, '15.5-oz. cans drained and rinsed' );
 
 INSERT INTO Ingredients(Title) VALUES ('chicken broth');
 INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (0, 12, 3, 'cups');
 
 INSERT INTO Ingredients(Title) VALUES ('green olives');
-INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure, Preparation) VALUES (0, 13, .33, 'cups','sliced');
+INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (0, 13, .33, 'cups sliced');
 
 -- Chicken Enchiladas
 -- credit: https://www.foodnetwork.com/recipes/ree-drummond/simple-perfect-enchiladas-recipe0-2043114
@@ -87,13 +86,13 @@ INSERT INTO Recipes(Title,Description,Instructions,Style,Type,UserCreated,Favori
 INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (1, 0, 4, 'tablespoons');
 
 INSERT INTO Ingredients(Title) VALUES ('white onion');
-INSERT INTO Contains( RecipeID, IngredientID, Amount, Preparation) VALUES (1, 14, 1, 'peeled and diced');
+INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (1, 14, 1, 'peeled and diced');
 
 INSERT INTO Ingredients(Title) VALUES ('chicken breast');
-INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure, Preparation) VALUES (1, 15, 1, 'pound','diced into small 1/2-inch pieces');
+INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (1, 15, 1, 'pound diced into small 1/2-inch pieces');
 
 INSERT INTO Ingredients(Title) VALUES ('green chiles');
-INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure, Preparation) VALUES (1, 16, 1, '4-ounce can','diced');
+INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (1, 16, 1, '4-ounce can diced');
 
 INSERT INTO Ingredients(Title) VALUES ('sea salt');
 INSERT INTO Contains( RecipeID, IngredientID) VALUES (1, 17);
@@ -102,7 +101,7 @@ INSERT INTO Contains( RecipeID, IngredientID) VALUES (1, 17);
 INSERT INTO Contains( RecipeID, IngredientID) VALUES (1, 7);
 
 INSERT INTO Ingredients(Title) VALUES ('black beans');
-INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure, Preparation) VALUES (1, 18, 1, '15-ounce can','drained and rinsed');
+INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (1, 18, 1, '15-ounce can drained and rinsed');
 
 INSERT INTO Ingredients(Title) VALUES ('flour tortillas');
 INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (1, 19, 8, 'large');
@@ -117,7 +116,7 @@ INSERT INTO Ingredients(Title) VALUES ('garlic powder');
 INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (1, 21, .5, 'teaspoons');
 
 INSERT INTO Ingredients(Title) VALUES ('cumin');
-INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure,Preparation) VALUES (1, 22, .5, 'teaspoons','ground');
+INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (1, 22, .5, 'teaspoons ground');
 
 -- dried oregano
 INSERT INTO Contains( RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (1, 6, .25, 'teaspoons');
