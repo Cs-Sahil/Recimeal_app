@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import comp3350.recimeal.R;
 import comp3350.recimeal.application.Services;
 import comp3350.recimeal.business.AccessRecipes;
@@ -20,8 +22,8 @@ public class RecipesActivity extends Activity {
 
     private AccessRecipes accessRecipes;
     Recipe recipeToDisplay;
-    private Integer[] ingredientArray;
-    private ArrayAdapter<Integer> ingredientArrayAdapter;
+    private List<Ingredient> ingredientList;
+    private ArrayAdapter<Ingredient> ingredientArrayAdapter;
     private int selectedRecipePosition = -1;
 
     TextView recipeTitle;
@@ -32,20 +34,25 @@ public class RecipesActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
-        Intent recipeInfo = getIntent();//.getExtras();
-        recipeToDisplay = (Recipe)recipeInfo.getParcelableExtra("RecipeToRead");
+        Bundle b = getIntent().getExtras();
+        int recipeID = b.getInt("RecipeToRead");
+
+        accessRecipes = new AccessRecipes();
+        recipeToDisplay = accessRecipes.getRecipeById(recipeID);
+
         recipeTitle = (TextView)findViewById(R.id.textRecipeTitle);
         recipeDescription = (TextView)findViewById(R.id.textRecipeDescription);
         recipeInstruct = (TextView)findViewById(R.id.textRecipeInstruct);
-        if(recipeInfo!= null) {
+
+        if(recipeToDisplay!= null) {
             updateTitle(recipeToDisplay.getRecipeName());
             updateDescription(recipeToDisplay.getRecipeDescription());
             updateInstruct(recipeToDisplay.getRecipeInstruction());
 
         }
         try {
-            ingredientArray = recipeToDisplay.getIngredientIds();
-            ingredientArrayAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, ingredientArray) {
+            ingredientList = recipeToDisplay.getIngredients();
+            ingredientArrayAdapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, ingredientList) {
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
@@ -53,8 +60,8 @@ public class RecipesActivity extends Activity {
                     TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                     TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
-                    text1.setText(recipeToDisplay.getIngredientById(ingredientArray[position]).getName());
-                    text2.setText(recipeToDisplay.getIngredientById(ingredientArray[position]).getAmount() + " " + recipeToDisplay.getIngredientById(ingredientArray[position]).getUnit());
+                    text1.setText(ingredientList.get(position).getName());
+                    text2.setText(ingredientList.get(position).getAmount() + " " + ingredientList.get(position).getUnit());
 
                     return view;
                 }

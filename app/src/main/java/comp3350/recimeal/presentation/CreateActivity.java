@@ -145,7 +145,7 @@ public class CreateActivity extends Activity {
 
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // MUST FIX ID
-        input =  new Recipe( 0, title.getText().toString(),prep.getText().toString(),desc.getText().toString());
+        input =  new Recipe( 0, title.getText().toString(),desc.getText().toString(),prep.getText().toString());
         //
 
         //get ingredients

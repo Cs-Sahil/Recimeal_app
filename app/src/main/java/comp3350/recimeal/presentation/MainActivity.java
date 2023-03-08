@@ -148,12 +148,12 @@ public class MainActivity extends Activity {
 
 
     public void selectRecipeAtPosition(int position) {
-        Recipe selected = recipeArrayAdapter.getItem(position);
+        int selected = recipeArrayAdapter.getItem(position).getRecipeId();
 
         //this makes it change 'scenes' when something picked
         Intent recipeIntent = new Intent(this, RecipesActivity.class);
         //String recipeInfo[] = new String[] {selected.getRecipeName(),selected.getRecipeDescription(), selected.getRecipeInstruction()};
-        recipeIntent.putExtra("RecipeToRead",(Parcelable)selected);
+        recipeIntent.putExtra("RecipeToRead",selected);
         this.startActivity(recipeIntent);
     }
 
