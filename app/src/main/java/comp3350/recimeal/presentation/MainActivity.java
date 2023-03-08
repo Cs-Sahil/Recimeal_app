@@ -184,12 +184,6 @@ public class MainActivity extends Activity {
         this.startActivity(recipeIntent);
     }
 
-    public void addButtonPressed(View view)
-    {
-        Intent addIntent = new Intent(this,CreateActivity.class);
-        this.startActivity(addIntent);
-    }
-
     public void searchButtonPressed(View view)
     {
         EditText searchBar = (EditText) findViewById(R.id.searchRecipeText);
