@@ -99,7 +99,7 @@ public class RecipeDBPersistence implements RecipePersistence {
             insert = String.format("INSERT INTO Recipes(Title,Description,Instructions,Style,Type,UserCreated,Favorited) VALUES(%s, %s, %s, %s, %s, %d, %d)", newName, newDescription, newInstruction, "", "", 0, 0);
             state.execute(insert);
         }catch (final SQLException e){
-
+            System.out.println("Database reading error!");
         }
         return newId;
     }
@@ -125,4 +125,18 @@ public class RecipeDBPersistence implements RecipePersistence {
     {
 
     }
+
+    @Override
+    public int getNewestId() {
+        int newId = 0;
+        try(final Connection dbConnect = connectDB();){
+            final Statement state = dbConnect.createStatement();
+            final ResultSet maxId = state.executeQuery("SELECT MAX(id) FROM Recipes");
+            newId = maxId.getInt("id") + 1;
+        }catch (final SQLException e){
+            System.out.println("Database reading error!");
+        }
+        return newId;
+    }
+
 }

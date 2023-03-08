@@ -19,4 +19,6 @@ public interface RecipePersistence {
     void deleteRecipe(Recipe discardRecipe);
 
     void deleteIngredient( Ingredient discardIngredient);
+
+    int getNewestId();
 }
