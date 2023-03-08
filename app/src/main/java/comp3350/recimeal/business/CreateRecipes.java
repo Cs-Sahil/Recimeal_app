@@ -20,7 +20,7 @@ public class CreateRecipes {
         Recipe newRecipe = new Recipe(newId, name, instruction, description, style, type, true, false, "");
         //now insert the ingredients
         for(int i = 0; i < ingredientList.size(); i++){
-            newRecipe.addIngred(ingredientList.get(i));
+            newRecipe.addIngredient(ingredientList.get(i));
         }
 
         recipePersistence.insertRecipe(newRecipe);
