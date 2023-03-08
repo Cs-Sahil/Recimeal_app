@@ -28,7 +28,8 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
         return new Recipe(recipeID,recipeName,recipeInstruction, recipeDescription);
     }
 
-    public List<Recipe> getRecipesOnly()
+    @Override
+    public List<Recipe> getRecipeSequential()
     {
         final List<Recipe> recipes = new ArrayList<>();
         try(final Connection dbConnect = connectDB();)
@@ -53,17 +54,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
     }
 
 
-    @Override
-    public List<Recipe> getRecipeSequential() {
-        List<Recipe> recipes = this.getRecipesOnly();
 
-
-        for(int i = 0; i<recipes.size(); i++)
-        {
-
-        }
-        return null;
-    }
 
     @Override
     public Recipe getRecipeById(int id) {
