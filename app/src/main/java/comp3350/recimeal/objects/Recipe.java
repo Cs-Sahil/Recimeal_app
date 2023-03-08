@@ -6,6 +6,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -67,7 +68,27 @@ public class Recipe implements Parcelable {
             String ingredName = in.readString();
             float ingredAmount = in.readFloat();
             String ingredUnit = in.readString();
-            this.addIngred(new Ingredient(ingredID, ingredName,ingredAmount,ingredUnit));
+            this.addIngredient(new Ingredient(ingredID, ingredName,ingredAmount,ingredUnit));
+        }
+    }
+
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeString(instruction);
+        parcel.writeString(description);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            parcel.writeBoolean(userCreated);
+            parcel.writeBoolean(favorited);
+        }
+        parcel.writeString(style);
+        parcel.writeString(type);
+        parcel.writeInt(ingredients.size());
+        for(Map.Entry<Integer, Ingredient> mover : ingredients.entrySet()){
+            parcel.writeInt(mover.getKey());
+            parcel.writeString(mover.getValue().getName());
+            parcel.writeFloat(mover.getValue().getAmount());
+            parcel.writeString(mover.getValue().getUnit());
         }
     }
 
@@ -100,7 +121,7 @@ public class Recipe implements Parcelable {
     public Integer[] getIngredientIds() { return this.ingredients.keySet().toArray(new Integer[0]);}
 
     //add recipe to the recipe
-    public boolean addIngred( Ingredient newIngred){
+    public boolean addIngredient( Ingredient newIngred){
         //if the ingredient is already in the map, don't add it again
         if(ingredients.containsKey(newIngred.getId()))
             return false;
@@ -108,6 +129,18 @@ public class Recipe implements Parcelable {
             ingredients.put(newIngred.getId(), newIngred);
             return true;
         }
+    }
+    public boolean addIngredients(ArrayList<Ingredient> toAdd)
+    {
+        boolean allSuccessful = true;
+        for(int i =0; i< toAdd.size();i++)
+        {
+            if(!this.addIngredient(toAdd.get(i)))
+            {
+                allSuccessful = false;
+            }
+        }
+        return allSuccessful;
     }
     public Ingredient getIngredientById(int ingredId)
     {
@@ -129,25 +162,6 @@ public class Recipe implements Parcelable {
         return 0;
     }
 
-    @Override
-    public void writeToParcel(@NonNull Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(name);
-        parcel.writeString(instruction);
-        parcel.writeString(description);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            parcel.writeBoolean(userCreated);
-            parcel.writeBoolean(favorited);
-        }
-        parcel.writeString(style);
-        parcel.writeString(type);
-        parcel.writeInt(ingredients.size());
-        for(Map.Entry<Integer, Ingredient> mover : ingredients.entrySet()){
-            parcel.writeInt(mover.getKey());
-            parcel.writeString(mover.getValue().getName());
-            parcel.writeFloat(mover.getValue().getAmount());
-            parcel.writeString(mover.getValue().getUnit());
-        }
-    }
+
 }
 

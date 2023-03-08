@@ -31,6 +31,7 @@ public class IngredientPersistenceStub implements IngredientPersistence {
     }
 
     @Override
+    // returns ingredient without respect to a contains relationship with a recipe therefore making amount and unit default values
     public Ingredient getIngredientById(int id) {
         for(Ingredient ingredient: ingredients){
             if(ingredient.getId() == id)
@@ -49,6 +50,12 @@ public class IngredientPersistenceStub implements IngredientPersistence {
     public Ingredient updateIngredient(Ingredient currIngredient) {
         return null;
     }
+
+    public ArrayList<Ingredient> getRecipesIngredients( int recipeId)
+    {
+        ArrayList ingredients = new ArrayList<Ingredient>();
+        return ingredients;
+    };
 
     @Override
     public void deleteIngredient(Ingredient discardIngredient) {
