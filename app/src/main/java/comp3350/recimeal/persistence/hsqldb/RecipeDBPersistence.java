@@ -7,9 +7,12 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Map;
 
+import comp3350.recimeal.application.Services;
 import comp3350.recimeal.objects.Ingredient;
 import comp3350.recimeal.objects.Recipe;
+import comp3350.recimeal.persistence.IngredientPersistence;
 import comp3350.recimeal.persistence.RecipePersistence;
 
 public class RecipeDBPersistence extends DBPersistence implements RecipePersistence {
@@ -76,6 +79,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
         String newName = newRecipe.getRecipeName();
         String newDescription = newRecipe.getRecipeDescription();
         String newInstruction = newRecipe.getRecipeInstruction();
+        Map<Integer, Ingredient> ingredients = newRecipe.getIngredients();
 
         //check if there's a recipe with the same id, if there is, give the recipe a new id
         try(final Connection dbConnect = connectDB();){
@@ -90,6 +94,17 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
             }
             insert = String.format("INSERT INTO Recipes(Title,Description,Instructions,Style,Type,UserCreated,Favorited) VALUES(%s, %s, %s, %s, %s, %d, %d)", newName, newDescription, newInstruction, "", "", 0, 0);
             state.execute(insert);
+
+            //add all the ingredients
+            IngredientPersistence ingredientPersistence = Services.getIngredientPersistence();
+            for(Ingredient ingredient: ingredients.values()){
+                //ingredient does not exist in the database
+                if(ingredientPersistence.getIngredientById(ingredient.getId()) == null){
+                    ingredientPersistence.insertIngredient(ingredient, newId);
+                }else{
+                    //only update the Contains, although I feel like this is not the right place to do it...
+                }
+            }
         }catch (final SQLException e){
             System.out.println("Database reading error!");
         }
