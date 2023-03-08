@@ -8,6 +8,7 @@ public interface RecipePersistence {
 
     List<Recipe> getRecipeSequential();
 
+
     Recipe getRecipeById(int id);
 
     int insertRecipe(Recipe newRecipe);

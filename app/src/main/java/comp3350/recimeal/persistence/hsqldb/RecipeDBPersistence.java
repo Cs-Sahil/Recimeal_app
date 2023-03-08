@@ -12,22 +12,11 @@ import comp3350.recimeal.objects.Ingredient;
 import comp3350.recimeal.objects.Recipe;
 import comp3350.recimeal.persistence.RecipePersistence;
 
-public class RecipeDBPersistence implements RecipePersistence {
-
-    private static String dbPath;
-    private static String dbUsername = "SA";
-    private static String dbPassword ="";
-
+public class RecipeDBPersistence extends DBPersistence implements RecipePersistence {
 
     public RecipeDBPersistence(final String newDbPath) {
-        this.dbPath = newDbPath;
+        super(newDbPath);
 
-    }
-
-    private Connection connectDB() throws SQLException
-    {
-       //Class.forName("org.hsqldb.jdbc.JDBCDriver");
-        return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", dbUsername , dbPassword);
     }
 
     private Recipe fromResultSet(final ResultSet rset) throws SQLException
@@ -39,8 +28,7 @@ public class RecipeDBPersistence implements RecipePersistence {
         return new Recipe(recipeID,recipeName,recipeInstruction, recipeDescription);
     }
 
-    @Override
-    public List<Recipe> getRecipeSequential()
+    public List<Recipe> getRecipesOnly()
     {
         final List<Recipe> recipes = new ArrayList<>();
         try(final Connection dbConnect = connectDB();)
@@ -58,6 +46,19 @@ public class RecipeDBPersistence implements RecipePersistence {
 
         }
         catch (final SQLException e)
+        {
+
+        }
+        return null;
+    }
+
+
+    @Override
+    public List<Recipe> getRecipeSequential() {
+        List<Recipe> recipes = this.getRecipesOnly();
+
+
+        for(int i = 0; i<recipes.size(); i++)
         {
 
         }
