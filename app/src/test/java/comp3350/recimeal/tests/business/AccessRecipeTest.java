@@ -20,9 +20,9 @@ public class AccessRecipeTest {
     public void setup(){
         accessRecipes = new AccessRecipes();
         fullList = new ArrayList<>();
-        fullList.add(new Recipe("recipe1", "instruction1"));
-        fullList.add(new Recipe("recipe1", "instruction2"));
-        fullList.add(new Recipe("recipe2", "instruction2"));
+      //  fullList.add(new Recipe("recipe1", "instruction1"));
+        //fullList.add(new Recipe("recipe1", "instruction2"));
+       // fullList.add(new Recipe("recipe2", "instruction2"));
     }
 
     @Test

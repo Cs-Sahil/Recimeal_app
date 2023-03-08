@@ -12,7 +12,7 @@ public interface IngredientPersistence {
     // returns ingredient without respect to a contains relationship with a recipe therefore making amount and unit default values
     Ingredient getIngredientById(int id);
 
-    Ingredient insertIngredient(Ingredient newIngredient);
+    int insertIngredient(Ingredient newIngredient, int recipeID);
 
     Ingredient updateIngredient(Ingredient currIngredient);
 

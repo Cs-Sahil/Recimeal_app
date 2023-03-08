@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 public class RecipePersistenceStub implements RecipePersistence{
     private List<Recipe> recipes;
- /*
-    private String friedRiceInstructions = "Add the cooked rice to the pan and stir until well combined with the vegetables and eggs.\n"
+
+    private final String friedRiceInstructions = "Add the cooked rice to the pan and stir until well combined with the vegetables and eggs.\n"
             + "Cook for an additional 2-3 minutes, or until the rice is heated through.\n";
-    private String omeleteIntructions = "Whisk 2 eggs, add fillings, cook both sides in pan. Serve hot.";
-    private String brownieInstructions = "Mix melted chocolate and butter. Add sugar, eggs, and flour. Bake and serve.";
-    private String muffinInstructions =
+    private final String omeleteIntructions = "Whisk 2 eggs, add fillings, cook both sides in pan. Serve hot.";
+    private final String brownieInstructions = "Mix melted chocolate and butter. Add sugar, eggs, and flour. Bake and serve.";
+    private final String muffinInstructions =
                     "- Heat oven to 400 degrees fahrenheit.\n"+
                     "- Whisk flour, sugar, baking powder, and salt in a large bowl.\n"+
                     "- Add oil to a measuring jug that holds at least 1 cup.\n"+
@@ -25,7 +25,7 @@ public class RecipePersistenceStub implements RecipePersistence{
                     "- Fold in the blueberries.\n"+
                     "- Divide batter between muffin cups.\n"+
                     "- Bake 15-20 minutes";
-*/
+
     public RecipePersistenceStub() {
         this.recipes = new ArrayList<>();
         /*
@@ -105,5 +105,10 @@ public class RecipePersistenceStub implements RecipePersistence{
     @Override
     public void deleteIngredient(Ingredient discardIngredient) {
 
+    }
+
+    @Override
+    public int getNewestId() {
+        return 9;
     }
 }

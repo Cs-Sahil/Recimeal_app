@@ -6,7 +6,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -121,16 +121,16 @@ public class Recipe implements Parcelable {
     public Integer[] getIngredientIds() { return this.ingredients.keySet().toArray(new Integer[0]);}
 
     //add recipe to the recipe
-    public boolean addIngredient( Ingredient newIngred){
+    public boolean addIngredient( Ingredient newIngredient){
         //if the ingredient is already in the map, don't add it again
-        if(ingredients.containsKey(newIngred.getId()))
+        if(ingredients.containsKey(newIngredient.getId()))
             return false;
         else{
-            ingredients.put(newIngred.getId(), newIngred);
+            ingredients.put(newIngredient.getId(), newIngredient);
             return true;
         }
     }
-    public boolean addIngredients(ArrayList<Ingredient> toAdd)
+    public boolean addIngredients(List<Ingredient> toAdd)
     {
         boolean allSuccessful = true;
         for(int i =0; i< toAdd.size();i++)
@@ -142,14 +142,14 @@ public class Recipe implements Parcelable {
         }
         return allSuccessful;
     }
-    public Ingredient getIngredientById(int ingredId)
+    public Ingredient getIngredientById(int ingredientId)
     {
-        return this.ingredients.get(ingredId);
+        return this.ingredients.get(ingredientId);
     }
 
-    public boolean containsIngredient(int ingredId)
+    public boolean containsIngredient(int ingredientId)
     {
-        return ingredients.containsKey(ingredId);
+        return ingredients.containsKey(ingredientId);
     }
 
     @Override
