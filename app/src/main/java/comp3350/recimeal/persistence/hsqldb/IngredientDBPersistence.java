@@ -52,28 +52,41 @@ public class IngredientDBPersistence extends DBPersistence implements Ingredient
     @Override
     public int insertIngredient(Ingredient newIngredient, int recipeID) {
         //get the fields from the object
-        int newId = newIngredient.getId();
-        String newName = newIngredient.getName();
-        float newAmount = newIngredient.getAmount();
-        String newUnit = newIngredient.getUnit();
+        String name = newIngredient.getName();
+        float amount = newIngredient.getAmount();
+        String unit = newIngredient.getUnit();
+        int newId = -1;
+        try{
+            newId = contains(newIngredient);
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        };
 
         //check if there's a recipe with the same id, if there is, give the recipe a new id
         try(final Connection dbConnect = connectDB();){
-            final Statement state = dbConnect.createStatement();
-            String select = String.format("SELECT * FROM Ingredients WHERE RecipeID = %d", newId);
-            String ingredientInsert = "";
-            String containsInsert = "";
-            final ResultSet rset = state.executeQuery(select);
-            //if not empty, assign a valid id
-            if(rset.next()){
-                newId = getNewestId();
+
+            //if the ingredient is not in the database, insert it
+            if(newId == -1){
+                final PreparedStatement insertIngredient = dbConnect.prepareStatement("INSERT INTO Ingredients(Title) VALUES(?)", Statement.RETURN_GENERATED_KEYS);
+                insertIngredient.setString(1, name);
+                insertIngredient.executeQuery();
+                try(ResultSet rset = insertIngredient.getGeneratedKeys()){
+                    if(rset.next())
+                        newId = rset.getInt("IngredientID");
+                    else{
+                        throw new SQLException("Insert ingredient fail!");
+                    }
+                }
             }
-            ingredientInsert = String.format("INSERT INTO Ingredients(IngredientID, Title) VALUES(%d,%s)", newId, newName);
-            state.execute(ingredientInsert);
-            containsInsert = String.format("INSERT INTO Contains(RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (%d, %d, %d, %s)", recipeID, newId, newAmount, newUnit);
-            state.execute(containsInsert);
+            //insert into contains in all cases
+            final PreparedStatement insertContains = dbConnect.prepareStatement("INSERT INTO Contains(RecipeID, IngredientID, Amount, UnitOfMeasure) VALUES (?,?,?,?)");
+            insertContains.setInt(1, recipeID);
+            insertContains.setInt(2, newId);
+            insertContains.setFloat(3, amount);
+            insertContains.setString(4, unit);
+            insertContains.executeQuery();
         }catch (final SQLException e){
-            System.out.println("Database reading error!");
+            System.out.println(e.getMessage());
         }
         return newId;
     }
@@ -107,7 +120,7 @@ public class IngredientDBPersistence extends DBPersistence implements Ingredient
         }
         catch (final SQLException e)
         {
-
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -119,7 +132,7 @@ public class IngredientDBPersistence extends DBPersistence implements Ingredient
             final ResultSet maxId = state.executeQuery("SELECT MAX(id) FROM Ingredients");
             newId = maxId.getInt("RecipeID") + 1;
         }catch (final SQLException e){
-            System.out.println("Database reading error!");
+            System.out.println(e.getMessage());
         }
         return newId;
     }
@@ -131,5 +144,24 @@ public class IngredientDBPersistence extends DBPersistence implements Ingredient
         final Float ingredientAmount = rset.getFloat("Amount");
         final String ingredientUnit = rset.getString("UnitOfMeasure");
         return new Ingredient(ingredientID,ingredientName,ingredientAmount, ingredientUnit);
+    }
+
+    private int contains(Ingredient ingredient) throws SQLException{
+        String name = ingredient.getName();
+
+        try(final Connection dbConnect = connectDB()){
+            final PreparedStatement state = dbConnect.prepareStatement("SELECT * FROM Ingredient i WHERE i.Title = ?");
+            state.setString(1,name);
+            final ResultSet rset = state.executeQuery();
+            //if no result, ingredient does not exist in the database
+            if(!rset.next())
+                return -1;
+            else
+                return rset.getInt("IngredientID");
+
+        }catch (final SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return -1;
     }
 }

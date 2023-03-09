@@ -28,7 +28,7 @@ public class AccessIngredients {
     {
         return ingredientPersistence.getRecipesIngredients(recipeId);
     }
-    public List<Ingredient> getRecipes()
+    public List<Ingredient> getIngredients()
     {
         return Collections.unmodifiableList(ingredients);
     }
@@ -36,7 +36,7 @@ public class AccessIngredients {
     //returns a subset of ingredients from the provided list that contain the search term
     //for now it only looks for the term in the ingredient name. Case insensitive.
     //Does not modify fullList, but returns it if no search term is provided.
-    public List<Ingredient> getSearchedRecipes(List<Ingredient> fullList, String searchTerm)
+    public List<Ingredient> getSearchedIngredients(List<Ingredient> fullList, String searchTerm)
     {
         final List<Ingredient> searchList = new ArrayList<>();
 
