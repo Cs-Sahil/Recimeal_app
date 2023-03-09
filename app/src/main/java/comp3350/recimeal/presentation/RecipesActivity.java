@@ -54,8 +54,8 @@ public class RecipesActivity extends Activity {
 
         }
             try {
-                ingredientArray = recipeToDisplay.getIngredientIds();
-                ingredientArrayAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, ingredientArray) {
+                ingredientList = accessIngredients.getRecipeIngredients(recipeID);
+                ingredientArrayAdapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, ingredientList) {
                     @Override
                     public View getView(int position, View convertView, ViewGroup parent) {
                         View view = super.getView(position, convertView, parent);
@@ -63,17 +63,17 @@ public class RecipesActivity extends Activity {
                         TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                         TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
-                        text1.setText(recipeToDisplay.getIngredientById(ingredientArray[position]).getName());
+                        text1.setText(ingredientList.get(position).getName());
 
-                        String amountStr = recipeToDisplay.getIngredientById(ingredientArray[position]).getAmount()+"";
+                        String amountStr = ingredientList.get(position).getAmount()+"";
                         if(amountStr.endsWith(".0"))
                             amountStr=amountStr.substring(0,amountStr.length()-2);
-                        if(recipeToDisplay.getIngredientById(ingredientArray[position]).getUnit()!=null && recipeToDisplay.getIngredientById(ingredientArray[position]).getAmount()>0)
-                            text2.setText(amountStr + " " + recipeToDisplay.getIngredientById(ingredientArray[position]).getUnit());
-                        else if(recipeToDisplay.getIngredientById(ingredientArray[position]).getAmount()>0)
+                        if(ingredientList.get(position).getUnit()!=null && ingredientList.get(position).getAmount()>0)
+                            text2.setText(amountStr + " " + ingredientList.get(position).getUnit());
+                        else if(ingredientList.get(position).getAmount()>0)
                             text2.setText(amountStr+"");
                         else
-                            text2.setText(recipeToDisplay.getIngredientById(ingredientArray[position]).getUnit());
+                            text2.setText(ingredientList.get(position).getUnit());
                         return view;
                     }
                 };
