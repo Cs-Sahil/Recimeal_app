@@ -1,5 +1,7 @@
 package comp3350.recimeal.persistence.hsqldb;
 
+import android.util.Log;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -55,7 +57,6 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
             state.close();
 
             return recipes;
-
         }
         catch (final SQLException e)
         {
@@ -99,6 +100,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
             if(newId != -1)
                 return newId;
         }catch (SQLException e){
+            Log.d("RecipeDBPersistence", "insertRecipe failed before DB connect: "+e.getMessage());
             System.out.println(e.getMessage());
         };
 
@@ -124,6 +126,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
                 }
             }
         }catch (final SQLException e){
+            Log.d("RecipeDBPersistence", "insertRecipe failed DB connect: "+e.getMessage());
             System.out.println(e.getMessage());
         }
         return newId;
