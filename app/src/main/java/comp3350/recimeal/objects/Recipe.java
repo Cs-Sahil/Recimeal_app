@@ -62,6 +62,13 @@ public class Recipe {
     }
     public String getRecipeInstruction() { return (this.instruction);}
 
+    public String getRecipeStyle(){return (this.style);}
+
+    public String getRecipeType(){return (this.type);}
+    public String getRecipeNotes(){return (this.notes);}
+    public boolean getUserCreated(){return (this.userCreated);}
+    public boolean getFavorited(){return (this.favorited);}
+
     @Override
     public String toString() {
         return this.name;
