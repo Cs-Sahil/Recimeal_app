@@ -1,14 +1,5 @@
 package comp3350.recimeal.business;
 
-
-import java.util.List;
-
-import comp3350.recimeal.application.Services;
-import comp3350.recimeal.objects.Ingredient;
-import comp3350.recimeal.objects.Recipe;
-import comp3350.recimeal.persistence.IngredientPersistence;
-import comp3350.recimeal.persistence.RecipePersistence;
-
 public class VerifyRecipes
 {
      //returns with an error message, returns EMPTY STRING ON SUCCESS
@@ -22,15 +13,17 @@ public class VerifyRecipes
          return result;
      }
 
-     private String validateNumIngredients(int ingStart, int ingEnd)
+     public String validateNumIngredients(int ingStart, int ingEnd)
      {
          String result = "";
-         if(ingEnd<=ingStart)
-             result = "Recipe needs at least one ingredient.\n";
+         if(ingEnd<0 || ingStart<0)
+             result += "Error while indexing ingredients.\n";
+         else if(ingEnd<=ingStart)
+             result += "Recipe needs at least one ingredient.\n";
          return result;
      }
 
-     private String validateName(String name)
+     public String validateName(String name)
      {
          String result="";
          if(name.length()<1)
