@@ -15,14 +15,16 @@
         android:text="Create Recipe"
         android:textSize="28sp"
         android:textStyle="bold"
+        android:paddingBottom="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/recipeScroll"
-        android:layout_width="371dp"
-        android:layout_height="561dp"
+        android:layout_width="500dp"
+        android:layout_height="750dp"
         android:fillViewport="true"
+        android:paddingTop="16dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -170,11 +172,13 @@
     <Button
         android:id="@+id/button"
         android:layout_width="158dp"
-        android:layout_height="44dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="makeRecipeFromUI"
         android:text="@string/create"
+
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -183,6 +187,7 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/virdisGray1"
+        android:background="@color/virdisGray2"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:layout_constraintBottom_toBottomOf="parent"

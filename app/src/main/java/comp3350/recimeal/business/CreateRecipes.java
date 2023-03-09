@@ -9,7 +9,8 @@ import comp3350.recimeal.objects.Recipe;
 import comp3350.recimeal.persistence.IngredientPersistence;
 import comp3350.recimeal.persistence.RecipePersistence;
 
-public class CreateRecipes {
+public class CreateRecipes
+{
     private final RecipePersistence recipePersistence;
     private final IngredientPersistence ingredientPersistence;
 
@@ -17,6 +18,7 @@ public class CreateRecipes {
         recipePersistence = Services.getRecipePersistence();
         ingredientPersistence = Services.getIngredientPersistence();
     }
+
     public int createRecipe(final String name, final String instruction, final String description, String style, String type, List<Ingredient> ingredientList){
         //construct a temp Recipe Object, its id will be corrected by the database layer
         Recipe newRecipe = new Recipe(-1, name, instruction, description, style, type, true, false, "");
