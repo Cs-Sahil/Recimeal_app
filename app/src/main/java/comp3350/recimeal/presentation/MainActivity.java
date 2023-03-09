@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import android.view.MenuItem;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -76,6 +79,30 @@ public class MainActivity extends Activity {
         {
             Messages.fatalError(this, e.getMessage());
         }
+
+        // Initialize and assign variable
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
+
+        // Set Home selected
+        bottomNavigationView.setSelectedItemId(R.id.home);
+
+        // Perform item selected listener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch(item.getItemId())
+                {
+                    case R.id.newRecipe:
+                        startActivity(new Intent(getApplicationContext(),CreateActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.home:
+                        return true;
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -155,12 +182,6 @@ public class MainActivity extends Activity {
         //String recipeInfo[] = new String[] {selected.getRecipeName(),selected.getRecipeDescription(), selected.getRecipeInstruction()};
         recipeIntent.putExtra("RecipeToRead",selected);
         this.startActivity(recipeIntent);
-    }
-
-    public void addButtonPressed(View view)
-    {
-        Intent addIntent = new Intent(this,CreateActivity.class);
-        this.startActivity(addIntent);
     }
 
     public void searchButtonPressed(View view)
