@@ -28,7 +28,14 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
         final String recipeName = rset.getString("Title");
         final String recipeDescription = rset.getString("Description");
         final String recipeInstruction = rset.getString("Instructions");
-        return new Recipe(recipeID,recipeName,recipeInstruction, recipeDescription);
+        final String recipeStyle = rset.getString("Style");
+        final String recipeType = rset.getString("Type");
+        final boolean userCreated = rset.getBoolean("UserCreated");
+        final boolean favorited = rset.getBoolean("Favorited");
+        final String notes = rset.getString("Notes");
+
+
+        return new Recipe(recipeID,recipeName, recipeDescription,recipeInstruction,recipeStyle,recipeType,userCreated,favorited,notes);
     }
 
     @Override
@@ -74,6 +81,16 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
 
     @Override
     public int insertRecipe(Recipe newRecipe) {
+        return 0;
+    }
+
+    @Override
+    public Ingredient insertIngredient(Ingredient newIngredient) {
+        return null;
+    }
+
+    /*
+    public int insertRecipe(Recipe newRecipe) {
         //get the fields from the object
         int newId = newRecipe.getRecipeId();
         String newName = newRecipe.getRecipeName();
@@ -110,11 +127,8 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
         }
         return newId;
     }
+*/
 
-    @Override
-    public Ingredient insertIngredient(Ingredient newIngredient) {
-        return null;
-    }
 
     @Override
     public Recipe updateRecipe(Recipe currRecipe) {

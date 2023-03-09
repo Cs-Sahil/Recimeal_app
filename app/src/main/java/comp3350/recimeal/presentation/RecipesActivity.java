@@ -9,8 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import comp3350.recimeal.R;
 import comp3350.recimeal.application.Services;
+import comp3350.recimeal.business.AccessIngredients;
 import comp3350.recimeal.business.AccessRecipes;
 import comp3350.recimeal.objects.Ingredient;
 import comp3350.recimeal.objects.Recipe;
@@ -19,9 +22,10 @@ import comp3350.recimeal.objects.Recipe;
 public class RecipesActivity extends Activity {
 
     private AccessRecipes accessRecipes;
+    private AccessIngredients accessIngredients;
     Recipe recipeToDisplay;
-    private Integer[] ingredientArray;
-    private ArrayAdapter<Integer> ingredientArrayAdapter;
+    private List<Ingredient> ingredientList;
+    private ArrayAdapter<Ingredient> ingredientArrayAdapter;
     private int selectedRecipePosition = -1;
 
     TextView recipeTitle;
@@ -32,12 +36,18 @@ public class RecipesActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
-        Intent recipeInfo = getIntent();//.getExtras();
-        recipeToDisplay = (Recipe)recipeInfo.getParcelableExtra("RecipeToRead");
+        Bundle b = getIntent().getExtras();
+        int recipeID = b.getInt("RecipeToRead");
+
+        accessRecipes = new AccessRecipes();
+        accessIngredients = new AccessIngredients();
+        recipeToDisplay = accessRecipes.getRecipeById(recipeID);
+
         recipeTitle = (TextView)findViewById(R.id.textRecipeTitle);
         recipeDescription = (TextView)findViewById(R.id.textRecipeDescription);
         recipeInstruct = (TextView)findViewById(R.id.textRecipeInstruct);
-        if(recipeInfo!= null) {
+
+        if(recipeToDisplay!= null) {
             updateTitle(recipeToDisplay.getRecipeName());
             updateDescription(recipeToDisplay.getRecipeDescription());
             updateInstruct(recipeToDisplay.getRecipeInstruction());

@@ -1,6 +1,7 @@
 package comp3350.recimeal.business;
 
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 
+import comp3350.recimeal.objects.Ingredient;
 import comp3350.recimeal.objects.Recipe;
 import comp3350.recimeal.persistence.RecipePersistence;
 import comp3350.recimeal.application.Services;
@@ -32,17 +34,23 @@ public class AccessRecipes
 
     public List<Recipe> getRecipes()
     {
-        fillIngredients();
         return Collections.unmodifiableList(recipes);
     }
-
-    private void fillIngredients()
+    public Recipe getRecipeById(int recipeId)
     {
-        for(int i =0; i< recipes.size();i++) {
-            recipes.get(i).addIngredients(accessIngredients.getRecipeIngredients(recipes.get(i).getRecipeId()));
-        }
+        Recipe toSender = null;
+        boolean recipeFound = false;
+        for(int i =0; i< recipes.size() && !(recipeFound);i++) {
 
+            if( recipes.get(i).getRecipeId() == recipeId)
+            {
+                recipeFound = true;
+                toSender = recipes.get(i);
+            }
+        }
+        return toSender;
     }
+
     //returns a subset of recipes from the provided list that contain the search term
     //for now it only looks for the term in the recipe name. Case insensitive.
     //Does not modify fullList, but returns it if no search term is provided.
