@@ -195,7 +195,7 @@ public class CreateActivity extends Activity {
             {
                 int res = createRecipes.createRecipe(titleStr,prepStr,descStr,"","",ingList);
                 if(res!=-1)
-                    popup.warning(this,"Created recipe for "+titleStr);
+                    popup.notice(this,"Created recipe for "+titleStr);
                 else
                     popup.warning(this,"There was a problem submitting the recipe.");
             }
