@@ -1,6 +1,7 @@
-package comp3350.recimeal.objects.business;
+package comp3350.recimeal.business;
 
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 
+import comp3350.recimeal.objects.Ingredient;
 import comp3350.recimeal.objects.Recipe;
 import comp3350.recimeal.persistence.RecipePersistence;
 import comp3350.recimeal.application.Services;
@@ -16,6 +18,7 @@ public class AccessRecipes
 {
 
     private RecipePersistence recipePersistence;
+    private AccessIngredients accessIngredients;
     private List<Recipe> recipes;
     private Recipe recipe;
     private int currentRecipe;
@@ -24,6 +27,7 @@ public class AccessRecipes
     {
         recipePersistence = Services.getRecipePersistence();
         recipes = recipePersistence.getRecipeSequential();
+        accessIngredients = new AccessIngredients();
         recipe = null;
         currentRecipe = 0;
     }
@@ -31,6 +35,20 @@ public class AccessRecipes
     public List<Recipe> getRecipes()
     {
         return Collections.unmodifiableList(recipes);
+    }
+    public Recipe getRecipeById(int recipeId)
+    {
+        Recipe toSender = null;
+        boolean recipeFound = false;
+        for(int i =0; i< recipes.size() && !(recipeFound);i++) {
+
+            if( recipes.get(i).getRecipeId() == recipeId)
+            {
+                recipeFound = true;
+                toSender = recipes.get(i);
+            }
+        }
+        return toSender;
     }
 
     //returns a subset of recipes from the provided list that contain the search term

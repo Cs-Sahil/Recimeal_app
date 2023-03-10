@@ -15,55 +15,38 @@ import comp3350.recimeal.objects.Recipe;
 public class RecipeTest {
 
     private List<Ingredient> ingredients;
-    private Map<Integer, Integer> recipeIngred;
+    private Map<Integer, Float> recipeIngred;
     private final int listLength = 5;
 
     @Before
     public void setup(){
-        ingredients = new ArrayList<>();
-        recipeIngred = new TreeMap<>();
-
-        ingredients.add(new Ingredient("ingred1", 1, "unit1"));
-        ingredients.add(new Ingredient("ingred2", 2, "unit2"));
-        ingredients.add(new Ingredient("ingred3", 3, "unit3"));
-        ingredients.add(new Ingredient("ingred4", 4, "unit4"));
-        ingredients.add(new Ingredient("ingred5", 5, "unit5"));
-
-        recipeIngred.put((ingredients.get(0)).getId(), 10);
-        recipeIngred.put((ingredients.get(1)).getId(), 10);
-        recipeIngred.put((ingredients.get(2)).getId(), 10);
 
     }
 
     @Test
     public void testRecipeCreation(){
 
-        Recipe recipe1 = new Recipe("Recipe1", "Instructions here", "Description here", recipeIngred);
-        Recipe recipe2 = new Recipe("Recipe2", "Instructions here", "Description here");
-        Recipe recipe3 = new Recipe("Recipe3", "Instructions here");
+        Recipe recipe1 = new Recipe(-1, "name", "instruction", "description", "style", "type", true, false, "");
+        Recipe recipe2 = new Recipe(2, "Recipe2", "Instructions here", "Description here");
 
         assertNotNull("Recipe should be created with full information", recipe1);
-        assertNotNull("Recipe should be created without ingredient tree", recipe2);
-        assertNotNull("Recipe should be created without ingredient tree and description", recipe3);
+        assertNotNull("Recipe should be created with only id, name, instruction and description", recipe2);
 
     }
 
     @Test
     public void testGetters(){
-        Recipe recipe1 = new Recipe("Recipe1", "Instructions here", "Description here", recipeIngred);
+        Recipe recipe1 = new Recipe(1, "name", "description", "instruction", "style", "type", true, false, "");
 
-        assertEquals("Should get the name of \"Recipe1\"!", "Recipe1", recipe1.getRecipeName());
-        assertEquals("Should get the instruction of \"Instructions here\"!", "Instructions here", recipe1.getRecipeInstruction());
-        assertEquals("Should get the description of \"Description here\"!", "Description here", recipe1.getRecipeDescription());
-        assertTrue("Should have the first ingredient amount!", (recipe1.getIngredients().get(1) == 10));
-    }
-
-    @Test
-    public void testAddIngred(){
-        Recipe recipe1 = new Recipe("Recipe1", "Instructions here", "Description here", recipeIngred);
-
-        assertTrue("New ingredient should be added", recipe1.addIngred(6, 10));
-        assertFalse("Existing ingredient should be ignored", recipe1.addIngred(1, 10));
+        assertEquals("Should get the id of \"1\"!", 1, recipe1.getRecipeId());
+        assertEquals("Should get the name of \"Recipe1\"!", "name", recipe1.getRecipeName());
+        assertEquals("Should get the instruction of \"instruction\"!", "instruction", recipe1.getRecipeInstruction());
+        assertEquals("Should get the description of \"description\"!", "description", recipe1.getRecipeDescription());
+        assertEquals("Should get the style of \"style\"!", "style", recipe1.getRecipeStyle());
+        assertEquals("Should get the type of \"type\"!", "type", recipe1.getRecipeType());
+        assertTrue("User created this!", recipe1.getUserCreated());
+        assertFalse("Not favorite!", recipe1.getFavorited());
 
     }
+
 }

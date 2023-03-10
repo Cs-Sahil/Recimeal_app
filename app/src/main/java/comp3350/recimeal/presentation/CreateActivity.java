@@ -1,8 +1,10 @@
 package comp3350.recimeal.presentation;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -11,7 +13,18 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import comp3350.recimeal.R;
+import comp3350.recimeal.application.Main;
+import comp3350.recimeal.business.CreateRecipes;
+import comp3350.recimeal.business.VerifyRecipes;
+import comp3350.recimeal.objects.Ingredient;
 import comp3350.recimeal.objects.Recipe;
 
 public class CreateActivity extends Activity {
@@ -19,6 +32,8 @@ public class CreateActivity extends Activity {
     private TableLayout table;
     private Messages popup;
     private int nextID = 1;
+    private VerifyRecipes verifyRecipes;
+    private CreateRecipes createRecipes;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +43,37 @@ public class CreateActivity extends Activity {
         {
             table = (TableLayout) findViewById(R.id.ingredientTable);
             popup = new Messages();
+            verifyRecipes = new VerifyRecipes();
+            createRecipes = new CreateRecipes();
         }
         catch (final Exception e)
         {
             Messages.fatalError(this, e.getMessage());
         }
+
+        // Initialize and assign variable
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
+
+        // Set Create selected
+        bottomNavigationView.setSelectedItemId(R.id.newRecipe);
+
+        // Perform item selected listener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch(item.getItemId())
+                {
+                    case R.id.newRecipe:
+                        return true;
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -127,47 +168,83 @@ public class CreateActivity extends Activity {
         return cancelButton;
     }
 
-    //-----------------------------------------------------------
-    //This function is untested and is not called anywhere
-    //it returns null on failure, returns a recipe on success
-    private Recipe makeRecipeFromUI()
+    public void makeRecipeFromUI(View view)
     {
-        Recipe input=null;
         int ingStart = 2;  //The first two rows in table are not ingredients, do not read them
         int ingEnd = table.getChildCount();
-
-        //validate for title, desc, prep in some logic class
-        //validate that there is as least one ingredient (ingEnd>ingStart)
-
         EditText title= (EditText) findViewById(R.id.createTitleText);
+        String titleStr = title.getText().toString();
         EditText desc = (EditText) findViewById(R.id.createDescriptionText);
+        String descStr = desc.getText().toString();
         EditText prep = (EditText) findViewById(R.id.createPrepText);
+        String prepStr = prep.getText().toString();
 
-        input =  new Recipe(title.getText().toString(),prep.getText().toString(),desc.getText().toString());
+        String check = verifyRecipes.validateAll(ingStart,ingEnd,title.getText().toString(),desc.getText().toString(),prep.getText().toString());
+
+        if(check.length()>0)
+        {
+            popup.warning(this,check);
+        }
+        else
+        {
+            // createRecipe(name, instruction, description, String style, String type, List<Ingredient> ingredientList)
+            //get ingredients
+            List<Ingredient> ingList = makeIngredientListFromUI(ingStart,ingEnd);
+
+            if(ingList.size()>0)
+            {
+                int res = createRecipes.createRecipe(titleStr,prepStr,descStr,"","",ingList);
+                if(res!=-1)
+                    popup.notice(this,"Created recipe for "+titleStr);
+                else
+                    popup.warning(this,"There was a problem submitting the recipe.");
+            }
+            else
+            {
+                popup.warning(this, "An error occurred while reading ingredients. Try removing them and re-entering.");
+            }
+        }
+    }
+
+    private List<Ingredient> makeIngredientListFromUI(int ingStart,int ingEnd)
+    {
+        List<Ingredient> ingList = new ArrayList<Ingredient>();
 
         //get ingredients
         for(int i = ingStart;i<ingEnd;i++)
         {
-            View view = table.getChildAt(i);
-            if(view instanceof TableRow)
-            {
-                TableRow row = (TableRow) view;
+            View viewRow = table.getChildAt(i);
+            if (viewRow instanceof TableRow) {
+                TableRow row = (TableRow) viewRow;
+                Ingredient newIng;
                 try
                 {
                     TextView ingAmount = (TextView) row.getChildAt(0);
+                    float ingNum;
+                    String ingAmountStr;
+                    String[] split = ingAmount.getText().toString().split(" ", 2);
+                    try {
+                        ingNum = Float.parseFloat(split[0]);
+                        if(split.length>1)
+                            ingAmountStr = split[1];
+                        else
+                            ingAmountStr = "";
+                    } catch (Exception e) {
+                        ingNum = 0;
+                        ingAmountStr = split[0];
+                    }
                     TextView ingName = (TextView) row.getChildAt(1);
 
-                    //we would add ingredients here, but recipe does not accept a string for amount
-                    input.addIngred(ingAmount.getText().toString(),5);
+                    newIng = new Ingredient(-1, ingName.getText().toString(), ingNum, ingAmountStr);
+                    ingList.add(newIng);
                 }
                 catch (Exception e)
                 {
                     popup.warning(this, "An error occurred while reading ingredients. Try removing them and re-entering.");
-                    input=null;
                 }
             }
         }
 
-        return input;
+        return ingList;
     }
 }

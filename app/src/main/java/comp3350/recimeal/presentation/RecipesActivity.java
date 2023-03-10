@@ -9,19 +9,23 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import comp3350.recimeal.R;
 import comp3350.recimeal.application.Services;
+import comp3350.recimeal.business.AccessIngredients;
+import comp3350.recimeal.business.AccessRecipes;
 import comp3350.recimeal.objects.Ingredient;
-import comp3350.recimeal.objects.business.AccessRecipes;
 import comp3350.recimeal.objects.Recipe;
 
 
 public class RecipesActivity extends Activity {
 
     private AccessRecipes accessRecipes;
+    private AccessIngredients accessIngredients;
     Recipe recipeToDisplay;
-    private Integer[] ingredientArray;
-    private ArrayAdapter<Integer> ingredientArrayAdapter;
+    private List<Ingredient> ingredientList;
+    private ArrayAdapter<Ingredient> ingredientArrayAdapter;
     private int selectedRecipePosition = -1;
 
     TextView recipeTitle;
@@ -32,36 +36,47 @@ public class RecipesActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
-        Intent recipeInfo = getIntent();//.getExtras();
-        recipeToDisplay = (Recipe)recipeInfo.getParcelableExtra("RecipeToRead");
+        Bundle b = getIntent().getExtras();
+        int recipeID = b.getInt("RecipeToRead");
+
+        accessRecipes = new AccessRecipes();
+        accessIngredients = new AccessIngredients();
+        recipeToDisplay = accessRecipes.getRecipeById(recipeID);
+
         recipeTitle = (TextView)findViewById(R.id.textRecipeTitle);
         recipeDescription = (TextView)findViewById(R.id.textRecipeDescription);
         recipeInstruct = (TextView)findViewById(R.id.textRecipeInstruct);
-        if(recipeInfo!= null) {
+
+        if(recipeToDisplay!= null) {
             updateTitle(recipeToDisplay.getRecipeName());
             updateDescription(recipeToDisplay.getRecipeDescription());
             updateInstruct(recipeToDisplay.getRecipeInstruction());
 
         }
-        try {
-            ingredientArray = recipeToDisplay.getIngredientList();
-            ingredientArrayAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, ingredientArray)
-            {
-                @Override
-                public View getView(int position, View convertView, ViewGroup parent) {
-                    View view = super.getView(position, convertView, parent);
+            try {
+                ingredientList = accessIngredients.getRecipeIngredients(recipeID);
+                ingredientArrayAdapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, ingredientList) {
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        View view = super.getView(position, convertView, parent);
 
-                    TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-                    TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+                        TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                        TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
-                    String ingredientName = Services.getIngredientPersistence().getIngredientById(ingredientArray[position]).getName();
+                        text1.setText(ingredientList.get(position).getName());
 
-                    text1.setText(ingredientName);
-                    text2.setText(Integer.toString(recipeToDisplay.getIngredientAmount(ingredientArray[position])));
-
-                    return view;
-                }
-            };
+                        String amountStr = ingredientList.get(position).getAmount()+"";
+                        if(amountStr.endsWith(".0"))
+                            amountStr=amountStr.substring(0,amountStr.length()-2);
+                        if(ingredientList.get(position).getUnit()!=null && ingredientList.get(position).getAmount()>0)
+                            text2.setText(amountStr + " " + ingredientList.get(position).getUnit());
+                        else if(ingredientList.get(position).getAmount()>0)
+                            text2.setText(amountStr+"");
+                        else
+                            text2.setText(ingredientList.get(position).getUnit());
+                        return view;
+                    }
+                };
 
             final ListView listView = (ListView)findViewById(R.id.listIngredients);
             listView.setAdapter(ingredientArrayAdapter);

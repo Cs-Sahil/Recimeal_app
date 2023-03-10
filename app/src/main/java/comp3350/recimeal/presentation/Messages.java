@@ -28,4 +28,13 @@ public class Messages {
 
         alertDialog.show();
     }
+
+    public static void notice(Activity owner, String message) {
+        AlertDialog alertDialog = new AlertDialog.Builder(owner).create();
+
+        alertDialog.setTitle(owner.getString(R.string.notice));
+        alertDialog.setMessage(message);
+
+        alertDialog.show();
+    }
 }

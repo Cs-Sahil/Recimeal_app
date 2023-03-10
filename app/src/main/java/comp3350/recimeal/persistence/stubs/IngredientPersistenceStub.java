@@ -9,18 +9,20 @@ import comp3350.recimeal.objects.Recipe;
 import comp3350.recimeal.persistence.IngredientPersistence;
 
 public class IngredientPersistenceStub implements IngredientPersistence {
+
     private List<Ingredient> ingredients;
 
     public IngredientPersistenceStub() {
+
         this.ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient("Fries", 1));
-        ingredients.add(new Ingredient("Rice", 2));
-        ingredients.add(new Ingredient("Eggs", 3));
-        ingredients.add(new Ingredient("Cheese", 4));
-        ingredients.add(new Ingredient("Pepper", 5));
-        ingredients.add(new Ingredient("Flour", 6));
-        ingredients.add(new Ingredient("Muffins", 7));
-        ingredients.add(new Ingredient("Blueberries", 8));
+        ingredients.add(new Ingredient(1, "Fries", 1, "unit"));
+        ingredients.add(new Ingredient(2, "Rice", 2, "unit"));
+        ingredients.add(new Ingredient(3, "Eggs", 3, "unit"));
+        ingredients.add(new Ingredient(4, "Cheese", 4, "unit"));
+        ingredients.add(new Ingredient(5, "Pepper", 5, "unit"));
+        ingredients.add(new Ingredient(6, "Flour", 6, "unit"));
+        ingredients.add(new Ingredient(7, "Muffins", 7, "unit"));
+        ingredients.add(new Ingredient(8, "Blueberries", 8, "unit"));
     }
 
     @Override
@@ -29,6 +31,7 @@ public class IngredientPersistenceStub implements IngredientPersistence {
     }
 
     @Override
+    // returns ingredient without respect to a contains relationship with a recipe therefore making amount and unit default values
     public Ingredient getIngredientById(int id) {
         for(Ingredient ingredient: ingredients){
             if(ingredient.getId() == id)
@@ -38,9 +41,9 @@ public class IngredientPersistenceStub implements IngredientPersistence {
     }
 
     @Override
-    public Ingredient insertIngredient(Ingredient newIngredient) {
+    public int insertIngredient(Ingredient newIngredient, int recipeID) {
         ingredients.add(newIngredient);
-        return newIngredient;
+        return 0;
     }
 
     @Override
@@ -48,8 +51,16 @@ public class IngredientPersistenceStub implements IngredientPersistence {
         return null;
     }
 
+    public ArrayList<Ingredient> getRecipesIngredients( int recipeId)
+    {
+        ArrayList ingredients = new ArrayList<Ingredient>();
+        return ingredients;
+    };
+
     @Override
     public void deleteIngredient(Ingredient discardIngredient) {
 
     }
+
+
 }
