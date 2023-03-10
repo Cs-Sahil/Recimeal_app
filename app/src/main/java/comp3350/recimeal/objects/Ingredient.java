@@ -27,7 +27,7 @@ public class Ingredient{
         //only consider equal when both objects are Ingredients
         if(other instanceof Ingredient){
             final Ingredient otherIngredient = (Ingredient) other;
-            return (this.id == otherIngredient.id);
+            return (this.id == otherIngredient.id) || (this.name).equals(((Ingredient) other).name);
         }
 
         return false;
