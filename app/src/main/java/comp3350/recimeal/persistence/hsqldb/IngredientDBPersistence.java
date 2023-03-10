@@ -69,7 +69,7 @@ public class IngredientDBPersistence extends DBPersistence implements Ingredient
             if(newId == -1){
                 final PreparedStatement insertIngredient = dbConnect.prepareStatement("INSERT INTO Ingredients(Title) VALUES(?)", Statement.RETURN_GENERATED_KEYS);
                 insertIngredient.setString(1, name);
-                insertIngredient.executeQuery();
+                insertIngredient.executeUpdate();
                 try(ResultSet rset = insertIngredient.getGeneratedKeys()){
                     if(rset.next())
                         newId = rset.getInt("IngredientID");
@@ -84,7 +84,7 @@ public class IngredientDBPersistence extends DBPersistence implements Ingredient
             insertContains.setInt(2, newId);
             insertContains.setFloat(3, amount);
             insertContains.setString(4, unit);
-            insertContains.executeQuery();
+            insertContains.executeUpdate();
         }catch (final SQLException e){
             System.out.println(e.getMessage());
         }

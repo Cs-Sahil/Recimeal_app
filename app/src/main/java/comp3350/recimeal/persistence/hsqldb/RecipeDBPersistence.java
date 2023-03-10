@@ -95,14 +95,9 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
 
         int newId = -1;
         //check if there's a recipe with the same name, if there is, just return this recipe
-        try{
-            newId = contains(newRecipe);
-            if(newId != -1)
-                return newId;
-        }catch (SQLException e){
-            Log.d("RecipeDBPersistence", "insertRecipe failed before DB connect: "+e.getMessage());
-            System.out.println(e.getMessage());
-        };
+        newId = contains(newRecipe);
+        if(newId != -1)
+            return newId;
 
         try(final Connection dbConnect = connectDB();){
 
@@ -116,7 +111,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
             insertRecipe.setString(6, type);
             insertRecipe.setBoolean(7, userCreated);
             insertRecipe.setBoolean(8, favorited);
-            insertRecipe.executeQuery();
+            insertRecipe.executeUpdate();
             //get the key
             try(ResultSet rset = insertRecipe.getGeneratedKeys()){
                 if(rset.next())
@@ -169,7 +164,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
         return newId;
     }
 
-    private int contains(Recipe recipe) throws SQLException{
+    private int contains(Recipe recipe){
         String name = recipe.getRecipeName();
 
         try(final Connection dbConnect = connectDB()){
@@ -183,7 +178,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
                 return rset.getInt("RecipeID");
 
         }catch (final SQLException e){
-            System.out.println(e.getMessage());
+            Log.d("RecipeDBPersistence", "Contains failed before DB connect: "+e.getMessage());
         }
         return -1;
     }
