@@ -19,17 +19,12 @@ public class CreateRecipes
         ingredientPersistence = Services.getIngredientPersistence();
     }
 
-    public int createRecipe(final String name, final String instruction, final String description, String style, String type, List<Ingredient> ingredientList){
-        //construct a temp Recipe Object, its id will be corrected by the database layer
-        Recipe newRecipe = new Recipe(-1, name, instruction, description, style, type, true, false, "");
-        //insert this recipe
-        int newID = recipePersistence.insertRecipe(newRecipe);
+    public int createRecipe(Recipe recipe, List<Ingredient> ingredientList){
+        int newID = recipePersistence.insertRecipe(recipe);
 
-        //insert the ingredients
         for(int i = 0; i < ingredientList.size(); i++){
             ingredientPersistence.insertIngredient(ingredientList.get(i), newID);
         }
-
         return newID;
     }
 
