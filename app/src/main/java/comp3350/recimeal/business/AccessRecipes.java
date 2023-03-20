@@ -17,19 +17,18 @@ import comp3350.recimeal.application.Services;
 public class AccessRecipes
 {
 
-    private RecipePersistence recipePersistence;
-    private AccessIngredients accessIngredients;
-    private List<Recipe> recipes;
-    private Recipe recipe;
-    private int currentRecipe;
+    private final RecipePersistence recipePersistence;
+    private final List<Recipe> recipes;
 
     public AccessRecipes()
     {
         recipePersistence = Services.getRecipePersistence();
         recipes = recipePersistence.getRecipeSequential();
-        accessIngredients = new AccessIngredients();
-        recipe = null;
-        currentRecipe = 0;
+    }
+
+    public AccessRecipes(final RecipePersistence recipePersistence){
+        this.recipePersistence = recipePersistence;
+        recipes = this.recipePersistence.getRecipeSequential();
     }
 
     public List<Recipe> getRecipes()

@@ -14,15 +14,16 @@ public class AccessIngredients {
     //all the ingredients in the app
     private IngredientPersistence ingredientPersistence;
     private List<Ingredient> ingredients;
-    private Ingredient ingredient;
-    private int currIngredient;
 
     public AccessIngredients()
     {
         ingredientPersistence = Services.getIngredientPersistence();
         ingredients = ingredientPersistence.getIngredientSequential();
-        ingredient = null;
-        currIngredient = 0;
+    }
+
+    public AccessIngredients(final IngredientPersistence ingredientPersistence){
+        this.ingredientPersistence = ingredientPersistence;
+        ingredients = this.ingredientPersistence.getIngredientSequential();
     }
     public List<Ingredient> getRecipeIngredients( int recipeId )
     {
