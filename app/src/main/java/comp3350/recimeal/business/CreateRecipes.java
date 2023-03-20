@@ -20,12 +20,17 @@ public class CreateRecipes
     }
 
     public int createRecipe(Recipe recipe, List<Ingredient> ingredientList){
+        //add the recipe and get the id
         int newID = recipePersistence.insertRecipe(recipe);
-
+        //add the ingredients
         for(int i = 0; i < ingredientList.size(); i++){
             ingredientPersistence.insertIngredient(ingredientList.get(i), newID);
         }
         return newID;
+    }
+
+    public Recipe updateRecipe(Recipe currRecipe){
+        return recipePersistence.updateRecipe(currRecipe);
     }
 
 }
