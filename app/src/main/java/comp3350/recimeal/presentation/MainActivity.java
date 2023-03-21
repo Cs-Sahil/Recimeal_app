@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -171,9 +172,6 @@ public class MainActivity extends Activity {
         }
     }
 
-
-
-
     public void selectRecipeAtPosition(int position) {
         int selected = recipeArrayAdapter.getItem(position).getRecipeId();
 
@@ -188,8 +186,14 @@ public class MainActivity extends Activity {
     {
         EditText searchBar = (EditText) findViewById(R.id.searchRecipeText);
         String searchTerm = searchBar.getText().toString().toLowerCase(Locale.ROOT);
+        Switch user = (Switch) findViewById(R.id.switchUser);
+        Switch fav = (Switch) findViewById(R.id.switchFav);
+        Switch ing = (Switch) findViewById(R.id.switchIng);
+        boolean userOnly = user.isChecked();
+        boolean favOnly = fav.isChecked();
+        boolean checkIng = ing.isChecked();
 
-        final List<Recipe> searchList = accessRecipes.getSearchedRecipes(recipeList,searchTerm);
+        final List<Recipe> searchList = accessRecipes.getSearchedRecipes(recipeList,searchTerm,userOnly,favOnly,checkIng);
 
         //try to shove the new list into the view
         try {
