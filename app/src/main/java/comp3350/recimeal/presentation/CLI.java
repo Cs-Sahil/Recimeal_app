@@ -85,9 +85,9 @@ public class CLI  // command-line interface
 		AccessRecipes accessRecipes = new AccessRecipes();
 		List<Recipe> searchList;
 		if(inputTokens.length>1)
-			searchList = accessRecipes.getSearchedRecipes(accessRecipes.getRecipes(), inputTokens[1]);
+			searchList = accessRecipes.getSearchedRecipes(accessRecipes.getRecipes(), inputTokens[1],false,false,false);
 		else
-			searchList = accessRecipes.getSearchedRecipes(accessRecipes.getRecipes(), "");
+			searchList = accessRecipes.getSearchedRecipes(accessRecipes.getRecipes(), "",false,false,false);
 
 		//print all recipe names
 		for(int i=0;i<searchList.size();i++)
@@ -102,7 +102,7 @@ public class CLI  // command-line interface
 		AccessRecipes accessRecipes = new AccessRecipes();
 		if(inputTokens.length>1)
 		{
-			List<Recipe> list = accessRecipes.getSearchedRecipes(accessRecipes.getRecipes(),inputTokens[1]);
+			List<Recipe> list = accessRecipes.getSearchedRecipes(accessRecipes.getRecipes(),inputTokens[1],false,false,false);
 			if(list.size()>0) {
 				Recipe got = list.get(0);
 				//show the recipe info
