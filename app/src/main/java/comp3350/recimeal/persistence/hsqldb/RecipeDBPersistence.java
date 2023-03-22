@@ -136,7 +136,41 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
 
     @Override
     public Recipe updateRecipe(Recipe currRecipe) {
-        return null;
+        //get the fields from the object
+        String name = currRecipe.getRecipeName();
+        String description = currRecipe.getRecipeDescription();
+        String instruction = currRecipe.getRecipeInstruction();
+        String type = currRecipe.getRecipeType();
+        String style = currRecipe.getRecipeStyle();
+        boolean userCreated = currRecipe.getUserCreated();
+        boolean favorited = currRecipe.getFavorited();
+        String notes = currRecipe.getRecipeNotes();
+
+        int newId = -1;
+        //check if there's a recipe with the same name, if there is, just return this recipe
+        newId = contains(currRecipe);
+        if(newId == -1)
+            return null;
+
+        try(final Connection dbConnect = connectDB();){
+
+            //if the ingredient is not in the database, insert it
+            final PreparedStatement updateRecipe = dbConnect.prepareStatement("UPDATE Recipes SET Title = ?, Description = ?, Instruction = ?, Notes = ?, Style = ?, Type = ?, UserCreated = ?, Favorited = ?");
+            updateRecipe.setString(1, name);
+            updateRecipe.setString(2, description);
+            updateRecipe.setString(3, instruction);
+            updateRecipe.setString(4, notes);
+            updateRecipe.setString(5, style);
+            updateRecipe.setString(6, type);
+            updateRecipe.setBoolean(7, userCreated);
+            updateRecipe.setBoolean(8, favorited);
+            updateRecipe.executeUpdate();
+
+        }catch (final SQLException e){
+            Log.d("RecipeDBPersistence", "insertRecipe failed DB connect: "+e.getMessage());
+            System.out.println(e.getMessage());
+        }
+        return currRecipe;
     }
 
     @Override

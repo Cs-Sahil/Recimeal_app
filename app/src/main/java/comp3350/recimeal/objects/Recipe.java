@@ -15,7 +15,7 @@ public class Recipe {
 
     private final static String DEFAULT_DESCRIPTION = "No Description Given";
     private final int id;
-    private final String name;
+    private String name;
     private String instruction;
     //a short description of the recipe, shouldn't be more than 50 characters
     private String description;
@@ -68,6 +68,18 @@ public class Recipe {
     public String getRecipeNotes(){return (this.notes);}
     public boolean getUserCreated(){return (this.userCreated);}
     public boolean getFavorited(){return (this.favorited);}
+
+
+    //setters
+    public void setName(String newName){this.name = newName;}
+    public void setInstruction(String newIns){this.instruction = newIns;}
+    public void setDescription(String newDes){this.description = newDes;}
+    public void setNotes(String newNotes){this.notes = newNotes;}
+    public void setFavorited(){this.favorited = true;}
+    public void unsetFavorited(){this.favorited = false;}
+    public void setStyle(String newStyle){this.style = newStyle;}
+    public void setType(String newType){this.type = newType;}
+
 
     @Override
     public String toString() {
