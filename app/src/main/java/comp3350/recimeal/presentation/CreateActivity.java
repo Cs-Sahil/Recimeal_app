@@ -193,7 +193,7 @@ public class CreateActivity extends Activity {
 
             if(ingList.size()>0)
             {
-                Recipe newRecipe = new Recipe(-1, titleStr,prepStr,descStr,"","", true, false, "");
+                Recipe newRecipe = new Recipe(-1, titleStr,descStr,prepStr,"","", true, false, "");
                 int res = createRecipes.createRecipe(newRecipe, ingList);
                 if(res!=-1)
                     popup.notice(this,"Created recipe for "+titleStr);
