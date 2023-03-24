@@ -73,11 +73,6 @@ public class RecipePersistenceStub implements RecipePersistence{
     }
 
     @Override
-    public Ingredient insertIngredient(Ingredient newIngredient) {
-        return null;
-    }
-
-    @Override
     // updateRecipe(Recipe currRecipe) -> updates a recipe using an ID of that recipe
     public Recipe updateRecipe(Recipe currRecipe) {
         for (int i = 0; i < recipes.size(); i++) {
@@ -100,15 +95,5 @@ public class RecipePersistenceStub implements RecipePersistence{
                 break;
             }
         }
-    }
-
-    @Override
-    public void deleteIngredient(Ingredient discardIngredient) {
-
-    }
-
-    @Override
-    public int getNewestId() {
-        return 9;
     }
 }

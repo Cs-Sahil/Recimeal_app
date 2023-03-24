@@ -1,5 +1,7 @@
 package comp3350.recimeal.persistence.hsqldb;
 
+import android.util.Log;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,7 +32,7 @@ public class IngredientDBPersistence extends DBPersistence implements Ingredient
             }
             return ingredients;
         }catch (final SQLException e){
-
+            Log.d("IngredientDBPersistence", "Retrieve failed before DB connect" + e.getMessage());
         }
         return null;
     }
@@ -44,7 +46,7 @@ public class IngredientDBPersistence extends DBPersistence implements Ingredient
             if(rset.next())
                 return fromResultSet(rset);
         }catch (final SQLException e){
-
+            Log.d("IngredientDBPersistence", "Retrieve failed before DB connect" + e.getMessage());
         }
         return null;
     }
@@ -98,7 +100,15 @@ public class IngredientDBPersistence extends DBPersistence implements Ingredient
 
     @Override
     public void deleteIngredient(Ingredient discardIngredient) {
+        int discardID = discardIngredient.getId();
 
+        try(final Connection dbConnect = connectDB()){
+            final PreparedStatement state = dbConnect.prepareStatement("DELETE FROM Ingredients WHERE IngredientID = ?");
+            state.setInt(1, discardID);
+            state.executeUpdate();
+        }catch (final SQLException e){
+            Log.d("IngredientDBPersistence", "Delete failed before DB connect" + e.getMessage());
+        }
     }
     @Override
     public List<Ingredient> getRecipesIngredients(int recipeId) {

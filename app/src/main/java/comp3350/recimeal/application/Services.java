@@ -16,8 +16,6 @@ public class Services
         if (recipePersistence == null)
         {
             recipePersistence = new RecipeDBPersistence(Main.getDBPathName());
-            ingredientPersistence = new IngredientDBPersistence(Main.getDBPathName());
-            //recipePersistence = new RecipePersistenceStub();
         }
 
 
