@@ -8,18 +8,12 @@ public interface RecipePersistence {
 
     List<Recipe> getRecipeSequential();
 
-
     Recipe getRecipeById(int id);
 
     int insertRecipe(Recipe newRecipe);
-
-    Ingredient insertIngredient( Ingredient newIngredient);
 
     Recipe updateRecipe(Recipe currRecipe);
 
     void deleteRecipe(Recipe discardRecipe);
 
-    void deleteIngredient( Ingredient discardIngredient);
-
-    int getNewestId();
 }

@@ -51,6 +51,11 @@ public class AccessRecipes
         return toSender;
     }
 
+    public void deleteRecipe(Recipe discardRecipe){
+        recipePersistence.deleteRecipe(discardRecipe);
+    }
+
+
     //returns a subset of recipes from the provided list that contain the search term
     //for now it only looks for the term in the recipe name. Case insensitive.
     //Does not modify fullList, but returns it if no search term is provided.

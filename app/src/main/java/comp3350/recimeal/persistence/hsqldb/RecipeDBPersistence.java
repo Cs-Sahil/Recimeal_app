@@ -22,7 +22,6 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
 
     public RecipeDBPersistence(final String newDbPath) {
         super(newDbPath);
-
     }
 
     private Recipe fromResultSet(final ResultSet rset) throws SQLException
@@ -128,13 +127,6 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
     }
 
     @Override
-    public Ingredient insertIngredient(Ingredient newIngredient) {
-        return null;
-    }
-
-
-
-    @Override
     public Recipe updateRecipe(Recipe currRecipe) {
         //get the fields from the object
         String name = currRecipe.getRecipeName();
@@ -176,26 +168,15 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
     @Override
     public void deleteRecipe(Recipe discardRecipe)
     {
+        int discardID = discardRecipe.getRecipeId();
 
-    }
-
-    @Override
-    public void deleteIngredient(Ingredient discardIngredient)
-    {
-
-    }
-
-    @Override
-    public int getNewestId() {
-        int newId = 0;
-        try(final Connection dbConnect = connectDB();){
-            final Statement state = dbConnect.createStatement();
-            final ResultSet maxId = state.executeQuery("SELECT MAX(id) FROM Recipes");
-            newId = maxId.getInt("id") + 1;
+        try(final Connection dbConnect = connectDB()){
+            final PreparedStatement state = dbConnect.prepareStatement("DELETE FROM Recipes WHERE RecipeID = ?");
+            state.setInt(1, discardID);
+            state.executeUpdate();
         }catch (final SQLException e){
-            System.out.println("Database reading error!");
+            Log.d("RecipeDBPersistence", "Delete failed before DB connect" + e.getMessage());
         }
-        return newId;
     }
 
     private int contains(Recipe recipe){
