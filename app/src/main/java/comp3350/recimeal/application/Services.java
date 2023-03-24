@@ -8,27 +8,16 @@ import comp3350.recimeal.persistence.stubs.RecipePersistenceStub;
 import comp3350.recimeal.persistence.hsqldb.RecipeDBPersistence;
 public class Services
 {
-    private static RecipePersistence recipePersistence = null;
-    private static IngredientPersistence ingredientPersistence = null;
+    private static RecipePersistence recipePersistence = new RecipeDBPersistence(Main.getDBPathName());
+    private static IngredientPersistence ingredientPersistence = new IngredientDBPersistence(Main.getDBPathName());
 
     public static synchronized RecipePersistence getRecipePersistence()
     {
-        if (recipePersistence == null)
-        {
-            recipePersistence = new RecipeDBPersistence(Main.getDBPathName());
-        }
-
-
         return recipePersistence;
     }
 
     public static synchronized IngredientPersistence getIngredientPersistence()
     {
-        if(ingredientPersistence == null)
-        {
-            ingredientPersistence = new IngredientPersistenceStub();
-        }
-
         return ingredientPersistence;
     }
 }
