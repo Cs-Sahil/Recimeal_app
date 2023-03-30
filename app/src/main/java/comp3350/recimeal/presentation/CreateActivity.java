@@ -26,6 +26,7 @@ import comp3350.recimeal.business.CreateRecipes;
 import comp3350.recimeal.business.VerifyRecipes;
 import comp3350.recimeal.objects.Ingredient;
 import comp3350.recimeal.objects.Recipe;
+import comp3350.recimeal.objects.TempRecipe;
 
 public class CreateActivity extends Activity {
 
@@ -193,7 +194,7 @@ public class CreateActivity extends Activity {
 
             if(ingList.size()>0)
             {
-                Recipe newRecipe = new Recipe(-1, titleStr,descStr,prepStr,"","", true, false, "");
+                Recipe newRecipe = new TempRecipe(titleStr,descStr,prepStr,"","", true, false, "");
                 int res = createRecipes.createRecipe(newRecipe, ingList);
                 if(res!=-1)
                     popup.notice(this,"Created recipe for "+titleStr);

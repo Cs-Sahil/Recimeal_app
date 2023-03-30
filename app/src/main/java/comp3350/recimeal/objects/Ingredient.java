@@ -10,7 +10,7 @@ public class Ingredient{
     private final String unit;
 
     //constructor for ingredients
-    public Ingredient( int id,final String name, float amount, String unit){
+    public Ingredient(int id,final String name, float amount, String unit){
         this.name = name;
         this.id = id;
         this.amount = amount;

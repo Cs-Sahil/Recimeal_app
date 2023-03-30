@@ -135,17 +135,6 @@ public class IngredientDBPersistence extends DBPersistence implements Ingredient
         return null;
     }
 
-    public int getNewestId() {
-        int newId = 0;
-        try(final Connection dbConnect = connectDB();){
-            final Statement state = dbConnect.createStatement();
-            final ResultSet maxId = state.executeQuery("SELECT MAX(id) FROM Ingredients");
-            newId = maxId.getInt("RecipeID") + 1;
-        }catch (final SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return newId;
-    }
 
     private Ingredient fromResultSet(final ResultSet rset) throws SQLException
     {
