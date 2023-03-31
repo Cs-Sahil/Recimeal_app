@@ -169,16 +169,19 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
     @Override
     public void deleteRecipe(Recipe discardRecipe)
     {
-        int discardID = discardRecipe.getRecipeId();
+        int id = discardRecipe.getRecipeId();
 
-        try(final Connection dbConnect = connectDB()){
-            final PreparedStatement state = dbConnect.prepareStatement("DELETE FROM Recipes WHERE RecipeID = ?");
-            state.setInt(1, discardID);
-            state.executeUpdate();
-        }catch (final SQLException e){
-            Log.d("RecipeDBPersistence", "Delete failed before DB connect" + e.getMessage());
-            throw new PersistenceException("Fail to connect to database, please contact the developer.", e);
+        try(final Connection dbConnect = connectDB();){
+            final PreparedStatement deleteRecipe = dbConnect.prepareStatement("Delete from Recipes where Recipes.RecipeID = ?");
+            deleteRecipe.setInt(1,id);
+            deleteRecipe.executeUpdate();
+
         }
+        catch(final SQLException e){
+            Log.d("RecipeDBPersistence", "deleteRecipe failed DB connect: "+e.getMessage());
+            System.out.println(e.getMessage());
+        }
+
     }
 
     private int contains(Recipe recipe){

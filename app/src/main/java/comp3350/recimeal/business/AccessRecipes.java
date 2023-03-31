@@ -51,10 +51,6 @@ public class AccessRecipes
         return toSender;
     }
 
-    public void deleteRecipe(Recipe discardRecipe){
-        recipePersistence.deleteRecipe(discardRecipe);
-    }
-
 
     //returns a subset of recipes from the provided list that contain the search term
     //for now it only looks for the term in the recipe name. Case insensitive.
@@ -136,4 +132,11 @@ public class AccessRecipes
         }
         return searchList;
     }
+
+
+    public void deleteRecipe(Recipe recipe)
+    {
+        recipePersistence.deleteRecipe(recipe);
+    }
+
 }
