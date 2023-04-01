@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Recipe {
+public abstract class Recipe {
 
     private final static String DEFAULT_DESCRIPTION = "No Description Given";
-    private final int id;
+    //private final int id;
     private String name;
     private String instruction;
     //a short description of the recipe, shouldn't be more than 50 characters
@@ -26,7 +26,7 @@ public class Recipe {
     private String style;
     private String type;
 
-
+/*
     //a complete constructor
     public Recipe(int id, final String name, final String description , final String instruction, String style, String type, boolean userCreated, boolean favorited, String notes  ){
         this.id = id;
@@ -39,9 +39,22 @@ public class Recipe {
         this.type = type;
         this.notes = notes;
     }
-    public Recipe( int id, final String name, final String description, final String instruction )
+
+ */
+
+    public Recipe(final String name, final String description , final String instruction, String style, String type, boolean userCreated, boolean favorited, String notes  ){
+        this.name = name;
+        this.instruction = instruction;
+        this.description = description;
+        this.userCreated = userCreated;
+        this.favorited = favorited;
+        this.style = style;
+        this.type = type;
+        this.notes = notes;
+    }
+
+    public Recipe(final String name, final String description, final String instruction )
     {
-        this.id = id;
         this.name = name;
         this.instruction = instruction;
         this.description = description;
@@ -51,7 +64,9 @@ public class Recipe {
         this.type = null;
         this.notes = null;
     }
-    public int getRecipeId(){return this.id;}
+
+
+    public abstract int getRecipeId();
     public String getRecipeName()
     {
         return (this.name);

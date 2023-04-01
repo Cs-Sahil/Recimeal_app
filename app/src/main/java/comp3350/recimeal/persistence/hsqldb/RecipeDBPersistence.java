@@ -14,6 +14,7 @@ import java.util.Map;
 
 import comp3350.recimeal.application.Services;
 import comp3350.recimeal.objects.Ingredient;
+import comp3350.recimeal.objects.PermanentRecipe;
 import comp3350.recimeal.objects.Recipe;
 import comp3350.recimeal.persistence.IngredientPersistence;
 import comp3350.recimeal.persistence.RecipePersistence;
@@ -37,7 +38,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
         final String notes = rset.getString("Notes");
 
 
-        return new Recipe(recipeID,recipeName, recipeDescription,recipeInstruction,recipeStyle,recipeType,userCreated,favorited,notes);
+        return new PermanentRecipe(recipeID,recipeName, recipeDescription,recipeInstruction,recipeStyle,recipeType,userCreated,favorited,notes);
     }
 
     @Override
@@ -60,8 +61,8 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
         catch (final SQLException e)
         {
             System.out.println(e.getMessage());
+            throw new PersistenceException("Fail to connect to database, please contact the developer.", e);
         }
-        return null;
     }
 
 
@@ -75,9 +76,9 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
             final ResultSet rset = state.executeQuery(query);
             return fromResultSet(rset);
         }catch (final SQLException e){
-            System.out.println(e.getMessage());
+            Log.d("RecipeDBPersistence", "getRecipeById failed DB connect: "+e.getMessage());
+            throw new PersistenceException("Fail to connect to database, please contact the developer.", e);
         }
-        return null;
     }
 
     @Override
@@ -121,7 +122,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
             }
         }catch (final SQLException e){
             Log.d("RecipeDBPersistence", "insertRecipe failed DB connect: "+e.getMessage());
-            System.out.println(e.getMessage());
+            throw new PersistenceException("Fail to connect to database, please contact the developer.", e);
         }
         return newId;
     }
@@ -160,7 +161,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
 
         }catch (final SQLException e){
             Log.d("RecipeDBPersistence", "insertRecipe failed DB connect: "+e.getMessage());
-            System.out.println(e.getMessage());
+            throw new PersistenceException("Fail to connect to database, please contact the developer.", e);
         }
         return currRecipe;
     }
@@ -168,15 +169,19 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
     @Override
     public void deleteRecipe(Recipe discardRecipe)
     {
-        int discardID = discardRecipe.getRecipeId();
+        int id = discardRecipe.getRecipeId();
 
-        try(final Connection dbConnect = connectDB()){
-            final PreparedStatement state = dbConnect.prepareStatement("DELETE FROM Recipes WHERE RecipeID = ?");
-            state.setInt(1, discardID);
-            state.executeUpdate();
-        }catch (final SQLException e){
-            Log.d("RecipeDBPersistence", "Delete failed before DB connect" + e.getMessage());
+        try(final Connection dbConnect = connectDB();){
+            final PreparedStatement deleteRecipe = dbConnect.prepareStatement("Delete from Recipes where Recipes.RecipeID = ?");
+            deleteRecipe.setInt(1,id);
+            deleteRecipe.executeUpdate();
+
         }
+        catch(final SQLException e){
+            Log.d("RecipeDBPersistence", "deleteRecipe failed DB connect: "+e.getMessage());
+            throw new PersistenceException("Fail to connect to database, please contact the developer.", e);
+        }
+
     }
 
     private int contains(Recipe recipe){
