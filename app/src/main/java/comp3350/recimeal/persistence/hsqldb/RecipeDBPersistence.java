@@ -179,7 +179,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
         }
         catch(final SQLException e){
             Log.d("RecipeDBPersistence", "deleteRecipe failed DB connect: "+e.getMessage());
-            System.out.println(e.getMessage());
+            throw new PersistenceException("Fail to connect to database, please contact the developer.", e);
         }
 
     }
