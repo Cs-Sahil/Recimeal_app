@@ -12,14 +12,28 @@
 
         <TextView
             android:id="@+id/textRecipeTitle"
-            android:layout_width="match_parent"
-            android:layout_height="53dp"
+            android:layout_width="261dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="@string/default_title"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/favoriteSwitch"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Switch
+            android:id="@+id/favoriteSwitch"
+            android:layout_width="108dp"
+            android:layout_height="46dp"
+            android:text="Favourite"
+            android:background="@color/viridisPink2"
+            android:onClick="favoriteButton"
+            app:layout_constraintBottom_toTopOf="@+id/textRecipeDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textRecipeTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <TextView
             android:id="@+id/textRecipeDescription"

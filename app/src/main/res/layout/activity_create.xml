@@ -123,7 +123,7 @@
                         android:layout_column="0"
                         android:background="@color/virdisGray1"
                         android:hint="ex: 1 cup"
-                        android:maxLength="20"
+                        android:maxLength="12"
                         android:paddingRight="3dip" />
 
                     <EditText
@@ -133,7 +133,7 @@
                         android:layout_column="1"
                         android:background="@color/virdisGray1"
                         android:hint="ex: mashed blueberries"
-                        android:maxLength="50"
+                        android:maxLength="32"
                         android:paddingLeft="3dip" />
 
                     <ImageButton
