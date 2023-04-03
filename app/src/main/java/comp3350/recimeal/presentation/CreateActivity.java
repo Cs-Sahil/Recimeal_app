@@ -65,11 +65,15 @@ public class CreateActivity extends Activity {
 
                 switch(item.getItemId())
                 {
-                    case R.id.newRecipe:
+                    case R.id.groceryList:
+                        startActivity(new Intent(getApplicationContext(),GroceryActivity.class));
+                        overridePendingTransition(0,0);
                         return true;
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         overridePendingTransition(0,0);
+                        return true;
+                    case R.id.newRecipe:
                         return true;
                 }
                 return false;
