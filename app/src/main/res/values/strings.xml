@@ -39,4 +39,8 @@
     <string name="create_ingredients">Ingredients</string>
     <string name="create_button">Create</string>
 
+    <string name="nav_home">Home</string>
+    <string name="nav_recipe">New Recipe</string>
+    <string name="nav_grocery">Grocery List</string>
+
 </resources>

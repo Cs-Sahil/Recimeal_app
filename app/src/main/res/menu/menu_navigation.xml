@@ -3,12 +3,17 @@
 
     <item
         android:id="@+id/home"
-        android:icon="@android:drawable/ic_input_get"
-        android:title="Home" />
+        android:icon="@drawable/baseline_home_24"
+        android:title="@string/nav_home" />
     <item
         android:id="@+id/newRecipe"
         android:icon="@android:drawable/ic_menu_add"
-        android:title="New Recipe" />
+        android:title="@string/nav_recipe" />
+
+    <item
+        android:id="@+id/groceryList"
+        android:icon="@drawable/baseline_view_list_24"
+        android:title="@string/nav_grocery" />
 
 </menu>
 
