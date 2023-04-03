@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">Recimeal</string>
-    <string name= "default_title">No Title Found</string>
+    <string name="default_title">No Title Found</string>
     <string name="default_description">No Description Found</string>
     <string name="default_instructions">No Instructions Found</string>
     <string name="default_ingredients">No Ingredients Found</string>
     <string name="title_activity_recipes">Recipes</string>
+    <string name="title_activity_grocery">Grocery List</string>
     <string name="title_activity_main">Main</string>
     <string name="desc">Description:</string>
     <string name="action_settings">Settings</string>
