@@ -11,26 +11,27 @@ import comp3350.recimeal.persistence.RecipePersistence;
 
 public class CreateRecipes
 {
-    private final RecipePersistence recipePersistence;
-    private final IngredientPersistence ingredientPersistence;
+    private final AccessRecipes accessRecipes;
+    private final AccessIngredients accessIngredients;
 
-    public CreateRecipes(){
-        recipePersistence = Services.getRecipePersistence();
-        ingredientPersistence = Services.getIngredientPersistence();
+    public CreateRecipes(AccessRecipes newRecipes, AccessIngredients newIngredients){
+        accessRecipes = newRecipes;
+        accessIngredients = newIngredients;
     }
 
     public int createRecipe(Recipe recipe, List<Ingredient> ingredientList){
         //add the recipe and get the id
-        int newID = recipePersistence.insertRecipe(recipe);
+        int newID = accessRecipes.addRecipe(recipe);
         //add the ingredients
-        for(int i = 0; i < ingredientList.size(); i++){
-            ingredientPersistence.insertIngredient(ingredientList.get(i), newID);
+        if(ingredientList!=null)
+        {
+            for(int i = 0; i < ingredientList.size(); i++){
+                accessIngredients.addIngredient(ingredientList.get(i), newID);
+            }
+
         }
         return newID;
     }
 
-    public Recipe updateRecipe(Recipe currRecipe){
-        return recipePersistence.updateRecipe(currRecipe);
-    }
-
 }
+

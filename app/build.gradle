@@ -33,4 +33,5 @@ dependencies {
     implementation group: 'org.hsqldb', name: 'hsqldb', version: '2.4.1'
     testImplementation 'junit:junit:4.12'
     implementation 'androidx.appcompat:appcompat:1.0.0'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.+'
 }
