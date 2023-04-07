@@ -133,10 +133,8 @@ public class AccessRecipes
         return searchList;
     }
 
-
     public void deleteRecipe(Recipe recipe)
     {
         recipePersistence.deleteRecipe(recipe);
     }
-
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import comp3350.recimeal.R;
 import comp3350.recimeal.application.Services;
 import comp3350.recimeal.business.AccessIngredients;
 import comp3350.recimeal.business.AccessRecipes;
+import comp3350.recimeal.business.CreateRecipes;
 import comp3350.recimeal.objects.Ingredient;
 import comp3350.recimeal.objects.Recipe;
 
@@ -28,6 +30,7 @@ public class RecipesActivity extends Activity {
 
     private AccessRecipes accessRecipes;
     private AccessIngredients accessIngredients;
+    private CreateRecipes createRecipes;
     Recipe recipeToDisplay;
     private List<Ingredient> ingredientList;
     private ArrayAdapter<Ingredient> ingredientArrayAdapter;
@@ -36,6 +39,7 @@ public class RecipesActivity extends Activity {
     TextView recipeTitle;
     TextView recipeDescription;
     TextView recipeInstruct;
+    Switch favSwitch;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -47,16 +51,18 @@ public class RecipesActivity extends Activity {
         accessRecipes = new AccessRecipes();
         accessIngredients = new AccessIngredients();
         recipeToDisplay = accessRecipes.getRecipeById(recipeID);
+        createRecipes = new CreateRecipes();
 
         recipeTitle = (TextView) findViewById(R.id.textRecipeTitle);
         recipeDescription = (TextView) findViewById(R.id.textRecipeDescription);
         recipeInstruct = (TextView) findViewById(R.id.textRecipeInstruct);
+        favSwitch = (Switch) findViewById(R.id.favoriteSwitch);
 
         if (recipeToDisplay != null) {
             updateTitle(recipeToDisplay.getRecipeName());
             updateDescription(recipeToDisplay.getRecipeDescription());
             updateInstruct(recipeToDisplay.getRecipeInstruction());
-
+            favSwitch.setChecked(recipeToDisplay.getFavorited());
         }
         try {
             ingredientList = accessIngredients.getRecipeIngredients(recipeID);
@@ -112,7 +118,6 @@ public class RecipesActivity extends Activity {
                 return false;
             }
         });
-
     }
 
     private void updateTitle(String newTitle) {
@@ -127,7 +132,6 @@ public class RecipesActivity extends Activity {
         recipeInstruct.setText(newInstruct);
     }
 
-
     public void buttonRecipeDeleteOnClick(View v) {
         try {
 
@@ -138,6 +142,34 @@ public class RecipesActivity extends Activity {
 
         } catch (final Exception e) {
             Messages.fatalError(this, e.getMessage());
+        }
+    }
+
+    public void favoriteButton(View view) {
+        if (recipeToDisplay.getFavorited())
+            recipeToDisplay.unsetFavorited();
+        else
+            recipeToDisplay.setFavorited();
+
+        try
+        {
+            Recipe r = createRecipes.updateRecipe(recipeToDisplay);
+        }
+        catch (final Exception e)
+        {
+            Messages.warning(this,"Could not mark favourite: "+e.getMessage());
+
+            //we don't want the switch to get out of sync
+            if(recipeToDisplay.getFavorited())
+            {
+                recipeToDisplay.unsetFavorited();
+                favSwitch.setChecked(false);
+            }
+            else
+            {
+                recipeToDisplay.setFavorited();
+                favSwitch.setChecked(true);
+            }
         }
     }
 
