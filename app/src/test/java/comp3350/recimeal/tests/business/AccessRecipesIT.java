@@ -30,7 +30,7 @@ public class AccessRecipesIT {
     {
         this.tempDB = TestUtils.copyDB();
         System.out.println(this.tempDB);
-        final RecipePersistence persistence = new RecipeDBPersistence(this.tempDB.getAbsolutePath().replace("script", ""));
+        final RecipePersistence persistence = new RecipeDBPersistence(this.tempDB.getAbsolutePath().replace(".script", ""));
         this.accessRecipes = new AccessRecipes(persistence);
     }
 
