@@ -9,10 +9,11 @@
 
         <TextView
             android:id="@+id/textRecipeTitle"
-            android:layout_width="match_parent"
-            android:layout_height="53dp"
+            android:layout_width="261dp"
+            android:layout_height="48dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="@string/default_title"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -22,21 +23,23 @@
 
         <Switch
             android:id="@+id/favoriteSwitch"
-            android:layout_width="108dp"
-            android:layout_height="46dp"
-            android:text="Favourite"
-            android:background="@color/viridisPink2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
             android:onClick="favoriteButton"
+            android:text="Favourite"
             app:layout_constraintBottom_toTopOf="@+id/textRecipeDescription"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textRecipeTitle"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textRecipeDescription"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
@@ -64,14 +67,15 @@
 
         <ScrollView
             android:id="@+id/recipeScroll"
-            android:layout_width="match_parent"
-            android:layout_height="243dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:fillViewport="true"
             android:scrollbars="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+            app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listIngredients">
@@ -79,28 +83,43 @@
                 <TextView
                     android:id="@+id/textRecipeInstruct"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
                     android:text="@string/default_instructions"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
         </ScrollView>
 
+
         <Button
             android:id="@+id/button"
-            android:layout_width="158dp"
+            android:layout_width="0dp"
             android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Delete"
             android:onClick="buttonRecipeDeleteOnClick"
+            android:text="Delete"
             app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button2"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="8dp"
+            android:onClick="buttonAddOnClick"
+            android:text="Add to Grocery List"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             android:background="@color/virdisGray1"
             app:itemBackground="@color/virdisGray1"
@@ -108,6 +127,7 @@
             app:itemTextColor="@drawable/selector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/menu_navigation" />
 

@@ -177,4 +177,13 @@ public class RecipesActivity extends Activity {
         }
     }
 
+    public void buttonAddOnClick(View v) {
+        // Add the recipe ingredients to grocery list
+        try {
+            accessRecipes.addToGrocery(recipeToDisplay.getRecipeId());
+        } catch (final Exception e) {
+            Messages.fatalError(this, e.getMessage());
+        }
+    }
+
 }
