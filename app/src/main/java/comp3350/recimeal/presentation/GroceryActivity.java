@@ -40,12 +40,13 @@ public class GroceryActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
 //        int recipeID = b.getInt("RecipeToRead");
 //        int recipeID = 0;
-        ArrayList<Integer> recipeIds = new ArrayList<Integer>();
-        recipeIds.add(0);
-        recipeIds.add(1);
+
+        //recipeIds.add(0);
+        //recipeIds.add(1);
 
         accessRecipes = new AccessRecipes();
         accessIngredients = new AccessIngredients();
+        List<Integer> recipeIds = accessRecipes.getGroceryRecipes();
 //        recipeToDisplay = accessRecipes.getRecipeById(recipeID);
 
         List<Ingredient> allIngredients = new ArrayList<>();

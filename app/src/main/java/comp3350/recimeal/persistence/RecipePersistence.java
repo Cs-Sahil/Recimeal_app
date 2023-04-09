@@ -16,4 +16,8 @@ public interface RecipePersistence {
 
     void deleteRecipe(Recipe discardRecipe);
 
+    List<Integer> groceryRecipes();
+
+    void addToGrocery(int RecipeID);
+
 }
