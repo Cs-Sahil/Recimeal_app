@@ -61,7 +61,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
         catch (final SQLException e)
         {
             System.out.println(e.getMessage());
-            throw new PersistenceException("Fail to connect to database, please contact the developer.", e);
+            throw new PersistenceException("Database failed. Please contact the developer.", e);
         }
     }
 
@@ -77,7 +77,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
             return fromResultSet(rset);
         }catch (final SQLException e){
             Log.d("RecipeDBPersistence", "getRecipeById failed DB connect: "+e.getMessage());
-            throw new PersistenceException("Fail to connect to database, please contact the developer.", e);
+            throw new PersistenceException("Database failed. Please contact the developer.", e);
         }
     }
 
@@ -120,9 +120,13 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
                     throw new SQLException("Insert recipe fail!");
                 }
             }
-        }catch (final SQLException e){
-            Log.d("RecipeDBPersistence", "insertRecipe failed DB connect: "+e.getMessage());
-            throw new PersistenceException("Fail to connect to database, please contact the developer.", e);
+        }catch (final SQLException sqle){
+            Log.d("RecipeDBPersistence", "insertRecipe failed DB connect: "+sqle.getMessage());
+            throw new PersistenceException("Database failed. Please contact the developer.", sqle);
+        }catch(final Exception e)
+        {
+            Log.d("RecipeDBPersistence", "insertRecipe failed: "+e.getMessage());
+            throw new PersistenceException("Database failed. Please contact the developer.", e);
         }
         return newId;
     }
@@ -148,7 +152,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
         try(final Connection dbConnect = connectDB();){
 
             //if the ingredient is not in the database, insert it
-            final PreparedStatement updateRecipe = dbConnect.prepareStatement("UPDATE Recipes SET Title = ?, Description = ?, Instruction = ?, Notes = ?, Style = ?, Type = ?, UserCreated = ?, Favorited = ?");
+            final PreparedStatement updateRecipe = dbConnect.prepareStatement("UPDATE Recipes SET Title = ?, Description = ?, Instructions = ?, Notes = ?, Style = ?, Type = ?, UserCreated = ?, Favorited = ? WHERE RecipeID = ?");
             updateRecipe.setString(1, name);
             updateRecipe.setString(2, description);
             updateRecipe.setString(3, instruction);
@@ -157,11 +161,12 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
             updateRecipe.setString(6, type);
             updateRecipe.setBoolean(7, userCreated);
             updateRecipe.setBoolean(8, favorited);
+            updateRecipe.setInt(9, newId);
             updateRecipe.executeUpdate();
 
         }catch (final SQLException e){
-            Log.d("RecipeDBPersistence", "insertRecipe failed DB connect: "+e.getMessage());
-            throw new PersistenceException("Fail to connect to database, please contact the developer.", e);
+            Log.d("RecipeDBPersistence", "updateRecipe failed DB connect: "+e.getMessage());
+            throw new PersistenceException("Database failed. Please contact the developer.", e);
         }
         return currRecipe;
     }
@@ -179,7 +184,7 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
         }
         catch(final SQLException e){
             Log.d("RecipeDBPersistence", "deleteRecipe failed DB connect: "+e.getMessage());
-            throw new PersistenceException("Fail to connect to database, please contact the developer.", e);
+            throw new PersistenceException("Database failed. Please contact the developer.", e);
         }
 
     }

@@ -22,6 +22,8 @@ import java.util.List;
 
 import comp3350.recimeal.R;
 import comp3350.recimeal.application.Main;
+import comp3350.recimeal.business.AccessIngredients;
+import comp3350.recimeal.business.AccessRecipes;
 import comp3350.recimeal.business.CreateRecipes;
 import comp3350.recimeal.business.VerifyRecipes;
 import comp3350.recimeal.objects.Ingredient;
@@ -35,6 +37,8 @@ public class CreateActivity extends Activity {
     private int nextID = 1;
     private VerifyRecipes verifyRecipes;
     private CreateRecipes createRecipes;
+    private AccessRecipes accessRecipes;
+    private AccessIngredients accessIngredients;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +48,10 @@ public class CreateActivity extends Activity {
         {
             table = (TableLayout) findViewById(R.id.ingredientTable);
             popup = new Messages();
+            accessRecipes = new AccessRecipes();
+            accessIngredients = new AccessIngredients();
             verifyRecipes = new VerifyRecipes();
-            createRecipes = new CreateRecipes();
+            createRecipes = new CreateRecipes(accessRecipes,accessIngredients );
         }
         catch (final Exception e)
         {

@@ -31,27 +31,16 @@ public class AccessIngredients {
     }
     public List<Ingredient> getIngredients()
     {
+        ingredients = this.ingredientPersistence.getIngredientSequential();
         return Collections.unmodifiableList(ingredients);
     }
 
     //returns a subset of ingredients from the provided list that contain the search term
     //for now it only looks for the term in the ingredient name. Case insensitive.
     //Does not modify fullList, but returns it if no search term is provided.
-    public List<Ingredient> getSearchedIngredients(List<Ingredient> fullList, String searchTerm)
-    {
-        final List<Ingredient> searchList = new ArrayList<>();
 
-        //craft the list with only entries with the search term
-        if(searchTerm!=null && !searchTerm.equals(""))
-        {
-            for (int i = 0; i < fullList.size(); i++)
-            {
-                if (fullList.get(i).getName().toLowerCase(Locale.ROOT).contains(searchTerm))
-                    searchList.add(fullList.get(i));
-            }
-            return searchList;
-        }
-        else //if search term was empty, give back the full list
-            return fullList;
+    public void addIngredient(Ingredient ingredient, int newID) {
+        ingredientPersistence.insertIngredient(ingredient,newID);
     }
 }
+

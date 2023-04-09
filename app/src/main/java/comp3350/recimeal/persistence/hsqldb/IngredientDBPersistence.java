@@ -20,6 +20,7 @@ public class IngredientDBPersistence extends DBPersistence implements Ingredient
     {
         super(newDbPath);
     }
+
     @Override
     public List<Ingredient> getIngredientSequential() {
         List<Ingredient> ingredients = new ArrayList<>();
@@ -32,7 +33,8 @@ public class IngredientDBPersistence extends DBPersistence implements Ingredient
             }
             return ingredients;
         }catch (final SQLException e){
-            Log.d("IngredientDBPersistence", "Retrieve failed before DB connect" + e.getMessage());
+           // Log.d("IngredientDBPersistence", "Retrieve failed before DB connect" + e.getMessage());
+            System.out.println("IngredientDBPersistence"+ "Retrieve failed before DB connect" + e.getMessage());
         }
         return null;
     }

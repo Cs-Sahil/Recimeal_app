@@ -29,11 +29,13 @@ import java.util.Locale;
 import comp3350.recimeal.R;
 import comp3350.recimeal.application.Main;
 import comp3350.recimeal.business.AccessRecipes;
+import comp3350.recimeal.business.SearchObjects;
 import comp3350.recimeal.objects.Recipe;
 
 public class MainActivity extends Activity {
 
     private AccessRecipes accessRecipes;
+    private SearchObjects searchObjects;
     private List<Recipe> recipeList;
     private ArrayAdapter<Recipe> recipeArrayAdapter;
     private int selectedRecipePosition = -1;
@@ -43,6 +45,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         copyDatabaseToDevice();
         accessRecipes = new AccessRecipes();
+        searchObjects = new SearchObjects(accessRecipes);
 
         try {
             recipeList = accessRecipes.getRecipes();
@@ -197,7 +200,7 @@ public class MainActivity extends Activity {
         boolean favOnly = fav.isChecked();
         boolean checkIng = ing.isChecked();
 
-        final List<Recipe> searchList = accessRecipes.getSearchedRecipes(recipeList,searchTerm,userOnly,favOnly,checkIng);
+        final List<Recipe> searchList = searchObjects.getSearchedRecipes(searchTerm,userOnly,favOnly,checkIng);
 
         //try to shove the new list into the view
         try {
