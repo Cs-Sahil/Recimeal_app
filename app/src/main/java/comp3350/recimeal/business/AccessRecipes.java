@@ -65,6 +65,10 @@ public class AccessRecipes
     {
         return recipePersistence.insertRecipe(addRecipe);
     }
+    public void addToGrocery(int recipeID)
+    {
+        recipePersistence.addToGrocery(recipeID);
+    }
     public Recipe updateRecipe(Recipe currRecipe){
         return recipePersistence.updateRecipe(currRecipe);
     }

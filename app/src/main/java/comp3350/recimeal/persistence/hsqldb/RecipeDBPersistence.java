@@ -213,12 +213,12 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
     }
 
     @Override
-    public void addToGrocery(int RecipeID) {
+    public void addToGrocery(int recipeID) {
 
         try (final Connection dbConnect = connectDB();) {
 
             final PreparedStatement insertRecipe = dbConnect.prepareStatement("INSERT INTO Grocery_List(RecipeID) VALUES(?)");
-            insertRecipe.setString(1, String.valueOf(RecipeID));
+            insertRecipe.setString(1, String.valueOf(recipeID));
             insertRecipe.executeUpdate();
         } catch (final SQLException sqle) {
             Log.d("RecipeDBPersistence", "insertRecipe failed DB connect: " + sqle.getMessage());
