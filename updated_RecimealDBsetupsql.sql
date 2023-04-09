@@ -27,6 +27,12 @@ CREATE TABLE Contains(
 	FOREIGN KEY (IngredientID) REFERENCES Ingredients(IngredientID) ON DELETE CASCADE
 );
 
+CREATE TABLE Grocery_List(
+	RecipeID INTEGER NOT NULL,
+	PRIMARY KEY(RecipeID),
+	FOREIGN KEY (RecipeID) REFERENCES Recipes(RecipeID) ON DELETE CASCADE
+);
+
 
 -- Spanish Rice and Beans Recipe Id(0)
 -- credit https://dishingouthealth.com/spanish-rice-and-beans-one-pot/
