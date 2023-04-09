@@ -31,3 +31,6 @@ Contains classes for the visual GUI of the activities.
 
 ### Website
 Our website is available [here](https://cs-sahil.github.io/ "https://cs-sahil.github.io/") and contains information about the project and its developers.
+
+### Diagram
+![Architechture Diagram](ARCHITECHTURE_iter3.png)
