@@ -34,7 +34,7 @@ public class AccessRecipes
 
     public List<Recipe> getRecipes()
     {
-        return Collections.unmodifiableList(recipes);
+        return Collections.unmodifiableList(recipePersistence.getRecipeSequential());
     }
     public Recipe getRecipeById(int recipeId)
     {
@@ -54,6 +54,7 @@ public class AccessRecipes
     public void deleteRecipe(Recipe discardRecipe){
         recipePersistence.deleteRecipe(discardRecipe);
     }
+
     public int addRecipe(Recipe addRecipe)
     {
         return recipePersistence.insertRecipe(addRecipe);
@@ -62,8 +63,4 @@ public class AccessRecipes
         return recipePersistence.updateRecipe(currRecipe);
     }
 
-    public void deleteRecipe(Recipe recipe)
-    {
-        recipePersistence.deleteRecipe(recipe);
-    }
 }

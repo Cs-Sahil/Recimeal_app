@@ -51,7 +51,7 @@ public class RecipesActivity extends Activity {
         accessRecipes = new AccessRecipes();
         accessIngredients = new AccessIngredients();
         recipeToDisplay = accessRecipes.getRecipeById(recipeID);
-        createRecipes = new CreateRecipes();
+        createRecipes = new CreateRecipes(accessRecipes, accessIngredients);
 
         recipeTitle = (TextView) findViewById(R.id.textRecipeTitle);
         recipeDescription = (TextView) findViewById(R.id.textRecipeDescription);

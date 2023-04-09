@@ -120,8 +120,12 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
                     throw new SQLException("Insert recipe fail!");
                 }
             }
-        }catch (final SQLException e){
-            Log.d("RecipeDBPersistence", "insertRecipe failed DB connect: "+e.getMessage());
+        }catch (final SQLException sqle){
+            Log.d("RecipeDBPersistence", "insertRecipe failed DB connect: "+sqle.getMessage());
+            throw new PersistenceException("Database failed. Please contact the developer.", sqle);
+        }catch(final Exception e)
+        {
+            Log.d("RecipeDBPersistence", "insertRecipe failed: "+e.getMessage());
             throw new PersistenceException("Database failed. Please contact the developer.", e);
         }
         return newId;

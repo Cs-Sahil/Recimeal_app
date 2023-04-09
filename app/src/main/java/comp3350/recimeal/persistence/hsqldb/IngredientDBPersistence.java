@@ -20,6 +20,7 @@ public class IngredientDBPersistence extends DBPersistence implements Ingredient
     {
         super(newDbPath);
     }
+
     @Override
     public List<Ingredient> getIngredientSequential() {
         List<Ingredient> ingredients = new ArrayList<>();

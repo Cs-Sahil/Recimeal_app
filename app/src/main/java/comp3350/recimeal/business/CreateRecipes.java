@@ -33,5 +33,10 @@ public class CreateRecipes
         return newID;
     }
 
+
+    public Recipe updateRecipe(Recipe recipeToUpdate) {
+        accessRecipes.updateRecipe(recipeToUpdate);
+        return accessRecipes.getRecipeById(recipeToUpdate.getRecipeId());
+    }
 }
 

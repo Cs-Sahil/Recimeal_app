@@ -62,10 +62,19 @@ public class AccessRecipesIT {
         final Recipe r = recipes.get(1);
         assertEquals(6, recipes.size());
         accessRecipes.deleteRecipe(r);
-        recipes = accessRecipes.getRecipes();
-        assertEquals(5, recipes.size());
+        List <Recipe> newRecipes = accessRecipes.getRecipes();
+        assertEquals(5, newRecipes.size());
     }
 
+    @Test
+    public void testUpdateRecipe()
+    {
+        final Recipe r = accessRecipes.getRecipes().get(0);
+        final Recipe u = new PermanentRecipe(r.getRecipeId(), "A new name", "A new desc", "A new instruction");
+        accessRecipes.updateRecipe(u);
+        assertEquals(6, accessRecipes.getRecipes().size());
+
+    }
     @After
     public void tearDown() {
         // reset DB
