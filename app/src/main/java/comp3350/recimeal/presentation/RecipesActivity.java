@@ -98,7 +98,6 @@ public class RecipesActivity extends Activity {
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-
         // Perform item selected listener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -106,12 +105,17 @@ public class RecipesActivity extends Activity {
 
                 switch(item.getItemId())
                 {
-                    case R.id.newRecipe:
-                        startActivity(new Intent(getApplicationContext(),CreateActivity.class));
+
+                    case R.id.groceryList:
+                        startActivity(new Intent(getApplicationContext(),GroceryActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.newRecipe:
+                        startActivity(new Intent(getApplicationContext(),CreateActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }
