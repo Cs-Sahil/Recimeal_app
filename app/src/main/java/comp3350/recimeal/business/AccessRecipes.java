@@ -19,7 +19,7 @@ public class AccessRecipes
 {
 
     private final RecipePersistence recipePersistence;
-    private final List<Recipe> recipes;
+    private List<Recipe> recipes;
 
     public AccessRecipes()
     {
@@ -34,10 +34,12 @@ public class AccessRecipes
 
     public List<Recipe> getRecipes()
     {
-        return Collections.unmodifiableList(recipePersistence.getRecipeSequential());
+        recipes = this.recipePersistence.getRecipeSequential();
+        return Collections.unmodifiableList(recipes);
     }
     public Recipe getRecipeById(int recipeId)
     {
+        recipes = this.recipePersistence.getRecipeSequential();
         Recipe toSender = null;
         boolean recipeFound = false;
         for(int i =0; i< recipes.size() && !(recipeFound);i++) {

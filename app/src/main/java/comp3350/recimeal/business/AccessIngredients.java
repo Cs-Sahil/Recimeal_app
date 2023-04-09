@@ -31,6 +31,7 @@ public class AccessIngredients {
     }
     public List<Ingredient> getIngredients()
     {
+        ingredients = this.ingredientPersistence.getIngredientSequential();
         return Collections.unmodifiableList(ingredients);
     }
 
