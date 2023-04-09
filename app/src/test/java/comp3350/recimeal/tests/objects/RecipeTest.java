@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import comp3350.recimeal.objects.Ingredient;
+import comp3350.recimeal.objects.PermanentRecipe;
 import comp3350.recimeal.objects.Recipe;
 
 public class RecipeTest {
@@ -26,8 +27,8 @@ public class RecipeTest {
     @Test
     public void testRecipeCreation(){
 
-        Recipe recipe1 = new Recipe(-1, "name", "instruction", "description", "style", "type", true, false, "");
-        Recipe recipe2 = new Recipe(2, "Recipe2", "Instructions here", "Description here");
+        Recipe recipe1 = new PermanentRecipe(-1, "name", "instruction", "description", "style", "type", true, false, "");
+        Recipe recipe2 = new PermanentRecipe(2, "Recipe2", "Instructions here", "Description here");
 
         assertNotNull("Recipe should be created with full information", recipe1);
         assertNotNull("Recipe should be created with only id, name, instruction and description", recipe2);
@@ -36,7 +37,7 @@ public class RecipeTest {
 
     @Test
     public void testGetters(){
-        Recipe recipe1 = new Recipe(1, "name", "description", "instruction", "style", "type", true, false, "");
+        Recipe recipe1 = new PermanentRecipe(1, "name", "description", "instruction", "style", "type", true, false, "");
 
         assertEquals("Should get the id of \"1\"!", 1, recipe1.getRecipeId());
         assertEquals("Should get the name of \"Recipe1\"!", "name", recipe1.getRecipeName());

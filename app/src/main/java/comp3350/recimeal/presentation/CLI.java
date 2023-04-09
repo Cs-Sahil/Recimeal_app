@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 import comp3350.recimeal.business.AccessRecipes;
+import comp3350.recimeal.business.SearchObjects;
 import comp3350.recimeal.objects.Recipe;
 
 public class CLI  // command-line interface
@@ -83,11 +84,12 @@ public class CLI  // command-line interface
 	public static void processSearch()
 	{
 		AccessRecipes accessRecipes = new AccessRecipes();
+		SearchObjects searchObjects = new SearchObjects(accessRecipes);
 		List<Recipe> searchList;
 		if(inputTokens.length>1)
-			searchList = accessRecipes.getSearchedRecipes(accessRecipes.getRecipes(), inputTokens[1],false,false,false);
+			searchList = searchObjects.getSearchedRecipes( inputTokens[1],false,false,false);
 		else
-			searchList = accessRecipes.getSearchedRecipes(accessRecipes.getRecipes(), "",false,false,false);
+			searchList = searchObjects.getSearchedRecipes( "",false,false,false);
 
 		//print all recipe names
 		for(int i=0;i<searchList.size();i++)
@@ -100,9 +102,10 @@ public class CLI  // command-line interface
 	public static void processGet()
 	{
 		AccessRecipes accessRecipes = new AccessRecipes();
+		SearchObjects searchObjects = new SearchObjects(accessRecipes);
 		if(inputTokens.length>1)
 		{
-			List<Recipe> list = accessRecipes.getSearchedRecipes(accessRecipes.getRecipes(),inputTokens[1],false,false,false);
+			List<Recipe> list = searchObjects.getSearchedRecipes(inputTokens[1],false,false,false);
 			if(list.size()>0) {
 				Recipe got = list.get(0);
 				//show the recipe info
