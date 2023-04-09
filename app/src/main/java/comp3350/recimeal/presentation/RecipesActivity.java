@@ -181,8 +181,9 @@ public class RecipesActivity extends Activity {
         // Add the recipe ingredients to grocery list
         try {
             accessRecipes.addToGrocery(recipeToDisplay.getRecipeId());
+            Messages.notice(this, "Recipe added to grocery list.");
         } catch (final Exception e) {
-            Messages.fatalError(this, e.getMessage());
+            Messages.notice(this, "Recipe already in grocery list.");
         }
     }
 
