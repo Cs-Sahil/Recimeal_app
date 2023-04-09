@@ -62,5 +62,8 @@ public class AccessRecipes
         return recipePersistence.updateRecipe(currRecipe);
     }
 
-
+    public void deleteRecipe(Recipe recipe)
+    {
+        recipePersistence.deleteRecipe(recipe);
+    }
 }
