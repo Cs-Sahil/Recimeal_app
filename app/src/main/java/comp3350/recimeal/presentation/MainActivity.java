@@ -101,6 +101,10 @@ public class MainActivity extends Activity {
                         startActivity(new Intent(getApplicationContext(),CreateActivity.class));
                         overridePendingTransition(0,0);
                         return true;
+                    case R.id.groceryList:
+                        startActivity(new Intent(getApplicationContext(),GroceryActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
                     case R.id.home:
                         return true;
                 }
