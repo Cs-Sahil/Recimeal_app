@@ -16,6 +16,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.CoreMatchers.anything;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,21 +37,6 @@ public class FilterTest {
 
     @Test
     public void filterTest() {
-        //mark the first two recipe as favorite
-        onData(anything()).inAdapterView(withId(R.id.listRecipes)).atPosition(0).perform(click());
-        onView(withId(R.id.favoriteSwitch)).perform(click());
-        sleep(4500);
-        pressBack();
-        onData(anything()).inAdapterView(withId(R.id.listRecipes)).atPosition(1).perform(click());
-        onView(withId(R.id.favoriteSwitch)).perform(click());
-        sleep(4500);
-        pressBack();
-
-        try {
-            Thread.sleep (1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace ();
-        }
 
         //click the favorite button to turn on the filter
         onView(withId(R.id.switchFav)).perform(click());
