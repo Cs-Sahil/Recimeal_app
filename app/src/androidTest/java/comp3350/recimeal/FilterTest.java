@@ -81,5 +81,32 @@ public class FilterTest {
 
     }
 
+    @Test
+    public void filterTest2(){
+        //create a recipe
+        onView(withId(R.id.newRecipe)).perform(click());
+        onView(withId(R.id.createTitleText)).perform(typeText("Test Recipe 2"));
+        onView(withId(R.id.createDescriptionText)).perform(typeText("Test Description 2"));
+        onView(withId(R.id.createIngredientAmount)).perform(typeText("2 test"));
+        onView(withId(R.id.createIngredientName)).perform(typeText("testatos2"));
+        onView(withId(R.id.addIngredientButton)).perform(click());
+        closeSoftKeyboard();
+
+        //search for user created
+        onView(withId(R.id.button)).perform(click());
+        pressBack();
+
+        //click the My Recipes button to turn on the filter
+        onView(withId(R.id.switchUser)).perform(click());
+
+        //input nothing
+        onView(withId(R.id.searchRecipeText)).perform(typeText(""));
+        //click the search button to apply the filter with empty search field to search all favorite recipes
+        onView(withId(R.id.searchRecipeButton)).perform(click());
+
+        onData(anything()).inAdapterView(withId(R.id.listRecipes)).atPosition(0).perform(click());
+        onView(withId(R.id.textRecipeTitle)).check(matches(withText("Test Recipe 2")));
+    }
+
 
 }
