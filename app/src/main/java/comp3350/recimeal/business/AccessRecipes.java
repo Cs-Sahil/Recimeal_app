@@ -52,6 +52,10 @@ public class AccessRecipes
         }
         return toSender;
     }
+    public List<Integer> getGroceryRecipes()
+    {
+        return recipePersistence.groceryRecipes();
+    }
 
     public void deleteRecipe(Recipe discardRecipe){
         recipePersistence.deleteRecipe(discardRecipe);
@@ -60,6 +64,10 @@ public class AccessRecipes
     public int addRecipe(Recipe addRecipe)
     {
         return recipePersistence.insertRecipe(addRecipe);
+    }
+    public void addToGrocery(int recipeID)
+    {
+        recipePersistence.addToGrocery(recipeID);
     }
     public Recipe updateRecipe(Recipe currRecipe){
         return recipePersistence.updateRecipe(currRecipe);

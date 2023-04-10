@@ -97,4 +97,14 @@ public class RecipePersistenceStub implements RecipePersistence{
             }
         }
     }
+
+    @Override
+    public List<Integer> groceryRecipes() {
+        return null;
+    }
+
+    @Override
+    public void addToGrocery(int RecipeID) {
+
+    }
 }

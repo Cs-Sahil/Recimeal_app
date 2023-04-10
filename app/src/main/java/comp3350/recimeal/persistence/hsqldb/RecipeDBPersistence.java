@@ -189,6 +189,43 @@ public class RecipeDBPersistence extends DBPersistence implements RecipePersiste
 
     }
 
+    @Override
+    public List<Integer> groceryRecipes() {
+        final List<Integer> groceries = new ArrayList<>();
+        try(final Connection dbConnect = connectDB();)
+        {
+            final Statement state = dbConnect.createStatement();
+            final ResultSet rset = state.executeQuery("SELECT g.RecipeID FROM Grocery_List g INNER JOIN Recipes r ON g.RecipeID = r.RecipeID");
+            while (rset.next()) {
+                final int groceryToAdd = rset.getInt("RecipeID");
+                groceries.add(groceryToAdd);
+            }
+            rset.close();
+            state.close();
+
+            return groceries;
+        }catch (final SQLException e){
+            Log.d("RecipeDBPersistence", "groceryRecipes failed DB connect: "+e.getMessage());
+            throw new PersistenceException("Database failed. Please contact the developer.", e);
+        }
+
+
+    }
+
+    @Override
+    public void addToGrocery(int recipeID) {
+
+        try (final Connection dbConnect = connectDB();) {
+
+            final PreparedStatement insertRecipe = dbConnect.prepareStatement("INSERT INTO Grocery_List(RecipeID) VALUES(?)");
+            insertRecipe.setString(1, String.valueOf(recipeID));
+            insertRecipe.executeUpdate();
+        } catch (final SQLException sqle) {
+            Log.d("RecipeDBPersistence", "insertRecipe failed DB connect: " + sqle.getMessage());
+            throw new PersistenceException("Database failed. Please contact the developer.", sqle);
+        }
+    }
+
     private int contains(Recipe recipe){
         String name = recipe.getRecipeName();
 
