@@ -56,6 +56,7 @@ public class InputDeleteTest {
         onView(withId(R.id.textRecipeTitle)).check(matches(withText("Test Recipe")));
         sleep(1000);
         onView(withId(R.id.deleteButton)).perform(click());
+        onView(withId(R.id.home)).perform(click());
 
     }
 }
