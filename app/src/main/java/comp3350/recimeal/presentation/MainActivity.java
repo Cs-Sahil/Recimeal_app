@@ -117,7 +117,42 @@ public class MainActivity extends Activity {
     @Override
     protected void onRestart() {
         super.onRestart();
+        try {
+            recipeList = accessRecipes.getRecipes();
+            recipeArrayAdapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, recipeList)
+            {
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
 
+                    TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                    TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+                    text1.setText(recipeList.get(position).getRecipeName());
+                    text2.setText(recipeList.get(position).getRecipeDescription());
+
+                    return view;
+                }
+            };
+
+            final ListView listView = (ListView)findViewById(R.id.listRecipes);
+            listView.setAdapter(recipeArrayAdapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    selectedRecipePosition = position;
+                    selectRecipeAtPosition(position);
+
+                }
+            });
+
+        }
+        catch (final Exception e)
+        {
+            Messages.fatalError(this, e.getMessage());
+        }
         selectedRecipePosition = -1;
     }
 
