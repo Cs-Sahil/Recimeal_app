@@ -28,6 +28,10 @@ Contains classes for the visual GUI of the activities.
 **MainActivity** is the main screen where the user can scroll through recipes in the database, and search for recipes.
 **CreateActivity** is the activity for filling out a form to create a new recipe.
 **RecipeActivity** is where a selected recipe is displayed, with all its details.
+**GroceryActivity** is a grocery list for viewing and tracking ingredients needed for a recipe.
 
 ### Website
 Our website is available [here](https://cs-sahil.github.io/ "https://cs-sahil.github.io/") and contains information about the project and its developers.
+
+### Diagram
+![Architechture Diagram](ARCHITECHTURE_iter3.png)
