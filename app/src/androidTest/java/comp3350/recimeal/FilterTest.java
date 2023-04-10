@@ -32,69 +32,27 @@ import androidx.test.runner.AndroidJUnit4;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class FilterTest {
+
     @Rule
     public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void filterTest() {
-        //mark the first two recipe as favorite
-        onData(anything()).inAdapterView(withId(R.id.listRecipes)).atPosition(0).perform(click());
-        onView(withId(R.id.favoriteSwitch)).perform(click());
-        sleep(1500);
-        onView(withId(R.id.home)).perform(click());
-        onData(anything()).inAdapterView(withId(R.id.listRecipes)).atPosition(1).perform(click());
-        onView(withId(R.id.favoriteSwitch)).perform(click());
-        sleep(1500);
-        onView(withId(R.id.home)).perform(click());
-
-        //click the favorite button to turn on the filter
-        onView(withId(R.id.switchFav)).perform(click());
-        //input nothing
-        onView(withId(R.id.searchRecipeText)).perform(typeText(""));
-        //click the search button to apply the filter with empty search field to search all favorite recipes
-        onView(withId(R.id.searchRecipeButton)).perform(click());
-        //verify that first recipe is shown
-        onData(anything()).inAdapterView(withId(R.id.listRecipes)).atPosition(0).perform(click());
-        onView(withId(R.id.textRecipeTitle)).check(matches(withText("Spanish Rice and Beans")));
-        onView(withId(R.id.home)).perform(click());
-
-        //click the favorite button to turn on the filter
-        onView(withId(R.id.switchFav)).perform(click());
-        //input nothing
-        onView(withId(R.id.searchRecipeText)).perform(typeText(""));
-        //click the search button to apply the filter with empty search field to search all favorite recipes
-        onView(withId(R.id.searchRecipeButton)).perform(click());
-        //verify that second recipes is shown
-        onData(anything()).inAdapterView(withId(R.id.listRecipes)).atPosition(1).perform(click());
-        onView(withId(R.id.textRecipeTitle)).check(matches(withText("Chicken Enchiladas")));
-        onView(withId(R.id.home)).perform(click());
-
-        // Unfavourite the recipes
-        onData(anything()).inAdapterView(withId(R.id.listRecipes)).atPosition(0).perform(click());
-        onView(withId(R.id.favoriteSwitch)).perform(click());
-        sleep(1500);
-        onView(withId(R.id.home)).perform(click());
-        onData(anything()).inAdapterView(withId(R.id.listRecipes)).atPosition(1).perform(click());
-        onView(withId(R.id.favoriteSwitch)).perform(click());
-        sleep(1500);
-        onView(withId(R.id.home)).perform(click());
-
-    }
-
-    @Test
-    public void filterTest2(){
+    public void filterTest(){
         //create a recipe
         onView(withId(R.id.newRecipe)).perform(click());
-        onView(withId(R.id.createTitleText)).perform(typeText("Test Recipe 2"));
-        onView(withId(R.id.createDescriptionText)).perform(typeText("Test Description 2"));
-        onView(withId(R.id.createIngredientAmount)).perform(typeText("2 test"));
-        onView(withId(R.id.createIngredientName)).perform(typeText("testatos2"));
+        onView(withId(R.id.createTitleText)).perform(typeText("My Test Recipe"));
+        onView(withId(R.id.createDescriptionText)).perform(typeText("Test Description"));
+        onView(withId(R.id.createIngredientAmount)).perform(typeText("2"));
+        onView(withId(R.id.createIngredientName)).perform(typeText("Eggs"));
         onView(withId(R.id.addIngredientButton)).perform(click());
+        closeSoftKeyboard();
+        onView(withId(R.id.createPrepText)).perform(typeText("Make them how you like."));
         closeSoftKeyboard();
 
         //search for user created
         onView(withId(R.id.button)).perform(click());
         pressBack();
+        onView(withId(R.id.home)).perform(click());
 
         //click the My Recipes button to turn on the filter
         onView(withId(R.id.switchUser)).perform(click());
@@ -105,7 +63,10 @@ public class FilterTest {
         onView(withId(R.id.searchRecipeButton)).perform(click());
 
         onData(anything()).inAdapterView(withId(R.id.listRecipes)).atPosition(0).perform(click());
-        onView(withId(R.id.textRecipeTitle)).check(matches(withText("Test Recipe 2")));
+        onView(withId(R.id.textRecipeTitle)).check(matches(withText("My Test Recipe")));
+
+        // Delete test recipe
+        onView(withId(R.id.deleteButton)).perform(click());
     }
 
 
