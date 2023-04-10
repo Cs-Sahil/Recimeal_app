@@ -1,4 +1,4 @@
-package comp3350.recimeal;
+package comp3350.recimeal.application;
 
 import static android.os.SystemClock.sleep;
 import static androidx.test.espresso.Espresso.onData;

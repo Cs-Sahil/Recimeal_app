@@ -1,4 +1,4 @@
-package comp3350.recimeal;
+package comp3350.recimeal.application;
 /*
 This class runs an automated acceptance tests for the Filter the Recipes feature
  */
