@@ -55,6 +55,7 @@ public class InputTest {
         sleep(1000);
         onView(withId(R.id.textRecipeTitle)).check(matches(withText("Test Recipe")));
         sleep(1000);
+        onView(withId(R.id.deleteButton)).perform(click());
 
     }
 }
