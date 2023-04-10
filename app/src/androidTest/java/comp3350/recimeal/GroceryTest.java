@@ -1,7 +1,15 @@
 package comp3350.recimeal;
 
 import static android.os.SystemClock.sleep;
+import static androidx.test.espresso.Espresso.onData;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.pressBack;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -11,9 +19,16 @@ import org.junit.runner.RunWith;
 
 import comp3350.recimeal.presentation.GroceryActivity;
 
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.anything;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsString;
 
+import android.widget.ListView;
+
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -33,9 +48,31 @@ public class GroceryTest {
     public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void testSomething() {
+    public void testAddRecipeToGrocery() {
         sleep(4500);
-        Espresso.onView(withId(R.id.appTitle)).check(matches(withText(containsString("Recimeal"))));
+        onData(anything()).inAdapterView(withId(R.id.listRecipes)).atPosition(0).perform(click());
+        onView(withId(R.id.addToGroceryButton)).perform(click());
+        pressBack();
+        // Go to grocery tab
+        onView(withId(R.id.groceryList)).perform(click());
+
+        // Check ingredients are there
+        onView(withId(R.id.listIngredients))
+                .check(matches(hasDescendant(withText("yellow onion"))));
+
+        onView(withId(R.id.listIngredients))
+                .check(matches(hasDescendant(withText("garlic cloves"))));
+
+        onView(withId(R.id.listIngredients))
+                .check(matches(hasDescendant(withText("paprika"))));
+
+        onView(withId(R.id.listIngredients))
+                .check(matches(hasDescendant(withText("kosher salt"))));
+
+        onView(withId(R.id.listIngredients))
+                .check(matches(hasDescendant(withText("black pepper"))));
+
+
     }
 
 }
