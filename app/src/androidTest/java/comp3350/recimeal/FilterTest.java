@@ -1,8 +1,9 @@
-package comp3350.recimeal.application;
+package comp3350.recimeal;
 /*
 This class runs an automated acceptance tests for the Filter the Recipes feature
  */
 
+import static android.os.SystemClock.sleep;
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
@@ -38,9 +39,11 @@ public class FilterTest {
         //mark the first two recipe as favorite
         onData(anything()).inAdapterView(withId(R.id.listRecipes)).atPosition(0).perform(click());
         onView(withId(R.id.favoriteSwitch)).perform(click());
+        sleep(4500);
         pressBack();
         onData(anything()).inAdapterView(withId(R.id.listRecipes)).atPosition(1).perform(click());
         onView(withId(R.id.favoriteSwitch)).perform(click());
+        sleep(4500);
         pressBack();
 
         try {
